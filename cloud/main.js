@@ -45,7 +45,8 @@ AV.Cloud.define("sendMsg", function(request, response) {
 		success: function(user) {
 			var bdUserId = user.get("bd_userId");
 			var messages = request.params.messages;
-			console.log(bdUserId);
+			console.log("nickName:" + user.get("nickName"));
+			response("nickName:" + user.get("nickName"));
 			// pushMessage(bdUserId, messages, respones);
 		},
 		error: function(object, error) {
