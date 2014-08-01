@@ -47,7 +47,58 @@ AV.Cloud.define("sendMsg", function(request, response) {
 			var messages = request.params.messages;
 			console.log("nickName:" + user.get("nickName"));
 			// response.success("nickName:" + user.get("nickName"));
-			pushMessage(bdUserId, messages, response);
+			// pushMessage(bdUserId, messages, response);
+		
+
+
+
+
+			//配置push对象
+			var opt = {
+				ak: '0C3jS31DYteNDW1HAM3TGcKV',
+				sk: '4mncUaMrC6L7h7Pqtf21XOx0azBGNcVa'
+			};
+
+			var Push = require('cloud/push.js');
+			var client = new Push(opt);
+			//推送参数
+			var push_opt = {
+				push_type: 0,
+				user_id: '1100801892847586532',
+				messages: JSON.stringify(messages),
+				msg_keys: JSON.stringify([new Date().getTime() + ""])
+			}
+			client.pushMsg(opt, function(err, result) {
+				if (err) {
+					console.log(err);
+					response.error(error);
+					return;
+				}
+				response.success(res);
+				console.log(result);
+			});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		},
 		error: function(object, error) {
 			console.log(error);
