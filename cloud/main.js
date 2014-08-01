@@ -5,7 +5,7 @@ AV.Cloud.define("hello", function(request, response) {
 });
 
 
-AVCloud.defind("test", function(request, response) {
+AVCloud.define("test", function(request, response) {
 	respone.success("test ok");
 });
 
