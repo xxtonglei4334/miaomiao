@@ -59,6 +59,8 @@ AV.Cloud.define("sendMsg", function(request, response) {
 				sk: '4mncUaMrC6L7h7Pqtf21XOx0azBGNcVa'
 			};
 
+			console.log(opt.ak);
+			console.log(opt.sk);
 			var Push = require('cloud/push.js');
 			var client = new Push(opt);
 			//推送参数
