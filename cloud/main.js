@@ -64,28 +64,32 @@ AV.Cloud.define("sendMsg", function(request, response) {
 			console.log(opt.sk);
 			var Push = require('cloud/push.js');
 			var client = new Push(opt);
-			//推送参数
-			var push_opt = {
-				push_type: 0,
-				user_id: '1100801892847586532',
-				messages: JSON.stringify(["hello, push0", "hello, push1", "hello, push2"]),
-    			msg_keys: JSON.stringify(["key0", "key1", "key2"])
-				// messages: request.messages,
-				// msg_keys: JSON.stringify([new Date().getTime() + ""])
-				// msg_keys: JSON.stringify(["8989777656"])
-			}
 
-			console.log(push_opt.messages);
-			console.log(push_opt.msg_keys);
-			client.pushMsg(opt, function(err, result) {
-				if (err) {
-					console.log(err);
-					response.error(error);
-					return;
-				}
-				response.success(res);
-				console.log(result);
-			});
+
+			response.success("ok");
+
+			//推送参数
+			// var push_opt = {
+			// 	push_type: 0,
+			// 	user_id: '1100801892847586532',
+			// 	messages: JSON.stringify(["hello, push0", "hello, push1", "hello, push2"]),
+   //  			msg_keys: JSON.stringify(["key0", "key1", "key2"])
+			// 	// messages: request.messages,
+			// 	// msg_keys: JSON.stringify([new Date().getTime() + ""])
+			// 	// msg_keys: JSON.stringify(["8989777656"])
+			// }
+
+			// console.log(push_opt.messages);
+			// console.log(push_opt.msg_keys);
+			// client.pushMsg(opt, function(err, result) {
+			// 	if (err) {
+			// 		console.log(err);
+			// 		response.error(error);
+			// 		return;
+			// 	}
+			// 	response.success(res);
+			// 	console.log(result);
+			// });
 
 
 
