@@ -6,7 +6,7 @@
  */
 
 var util = require('util');
-var assert = require('assert');
+// var assert = require('assert');
 var crypto = require('crypto');
 // var http = require('http');
 var querystring = require('querystring');
@@ -119,9 +119,9 @@ function getSign(method, url, params, sk) {
  */
 function request(bodyArgs, path, sk, id, host, cb) {
 
-    assert.ok(bodyArgs.method);
-    assert.ok(path);
-    assert.ok(sk);
+    // assert.ok(bodyArgs.method);
+    // assert.ok(path);
+    // assert.ok(sk);
 
     bodyArgs.sign = getSign('POST', PROTOCOL_SCHEMA + host + path, bodyArgs, sk);
 
