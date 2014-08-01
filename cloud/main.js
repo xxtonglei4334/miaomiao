@@ -6,24 +6,6 @@ AV.Cloud.define("hello", function(request, response) {
 
 var Push = require('cloud/push');
 
-//推送消息
-function pushMsg(client) {
-  var opt = {
-    push_type: 1,
-    user_id: id0,
-    messages: JSON.stringify(["hello, push0", "hello, push1", "hello, push2"]),
-    msg_keys: JSON.stringify(["key0", "key1", "key2"])
-  }
-  client.pushMsg(opt, function(err, result) {
-    if (err) {
-      console.log(err);
-      return;
-    }
-    console.log(result);
-  })
-}
-
-
 //发送消息函数
 AV.Cloud.define("sendMsg", function(request, response) {
   var query = new AV.Query(AV.User);
@@ -50,7 +32,7 @@ var opt = {
       response.error(error);
       return;
     }
-    response.success(result);
+    response.success(res);
     console.log(result);
   });
 
