@@ -22,7 +22,7 @@ function pushMessage(bdUserId, messages, response){
 			//推送参数
 			var push_opt = {
 				push_type: 0,
-				user_id: bdUserId,
+				user_id: '1100801892847586532',
 				messages: JSON.stringify(messages),
 				msg_keys: JSON.stringify([new Date().getTime() + ""])
 			}
@@ -40,17 +40,20 @@ function pushMessage(bdUserId, messages, response){
 //发送消息函数
 AV.Cloud.define("sendMsg", function(request, response) {
 	var query = new AV.Query(AV.User);
-	query.get(request.params.userId, {
-		success: function(user) {
-			var bdUserId = user.get("bd_userId");
-			var messages = request.params.messages;
+	console.log(request.user.toString());
+	pushMessage("9898", request.params.messages, respones);
 
-			console.log(user.toString());
-			// pushMessage(bdUserId, messages, respones);
-		},
-		error: function(object, error) {
-			console.log(error);
-			response.error(error);
-		}
-	});
+	// query.get(request.params.userId, {
+	// 	success: function(user) {
+	// 		var bdUserId = user.get("bd_userId");
+	// 		var messages = request.params.messages;
+
+	// 		console.log(user.toString());
+	// 		pushMessage(bdUserId, messages, respones);
+	// 	},
+	// 	error: function(object, error) {
+	// 		console.log(error);
+	// 		response.error(error);
+	// 	}
+	// });
 });
