@@ -35,21 +35,21 @@ function pushMessage(bdUserId, messages, response){
 			});
 }
 
-// //发送消息函数
-// AV.Cloud.define("sendMsg", function(request, response) {
-// 	var query = new AV.Query(AV.User);
-// 	query.equalTo("objectId", request.params.userId);
-// 	query.get(request.params.userId, {
-// 		success: function(user) {
-// 			var bdUserId = user.get("bd_userId");
-// 			var messages = request.params.messages;
-// 			pushMessage(bdUserId, messages, respones);
-// 		},
-// 		error: function(object, error) {
-// 			console.log(error);
-// 			response.error(error);
-// 		}
-// 	});
-// });
+//发送消息函数
+AV.Cloud.define("sendMsg", function(request, response) {
+	var query = new AV.Query(AV.User);
+	query.equalTo("objectId", request.params.userId);
+	query.get(request.params.userId, {
+		success: function(user) {
+			var bdUserId = user.get("bd_userId");
+			var messages = request.params.messages;
+			pushMessage(bdUserId, messages, respones);
+		},
+		error: function(object, error) {
+			console.log(error);
+			response.error(error);
+		}
+	});
+});
 
 // var Push = require('cloud/push.js');
