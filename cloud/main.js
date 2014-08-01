@@ -65,8 +65,9 @@ AV.Cloud.define("sendMsg", function(request, response) {
 			var push_opt = {
 				push_type: 0,
 				user_id: '1100801892847586532',
-				messages: JSON.stringify(messages),
-				msg_keys: JSON.stringify([new Date().getTime() + ""])
+				messages: request.messages,
+				// msg_keys: JSON.stringify([new Date().getTime() + ""])
+				msg_keys: JSON.stringify(["8989777656"])
 			}
 
 			console.log(push_opt.messages);
