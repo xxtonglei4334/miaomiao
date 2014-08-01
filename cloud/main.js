@@ -16,6 +16,8 @@ function pushMessage(bdUserId, messages, response){
 				ak: '0C3jS31DYteNDW1HAM3TGcKV',
 				sk: '4mncUaMrC6L7h7Pqtf21XOx0azBGNcVa'
 			};
+
+			var Push = require('cloud/push.js');
 			var client = new Push(opt);
 			//推送参数
 			var push_opt = {
@@ -51,5 +53,3 @@ AV.Cloud.define("sendMsg", function(request, response) {
 		}
 	});
 });
-
-// var Push = require('cloud/push.js');
