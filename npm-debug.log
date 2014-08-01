@@ -1,0 +1,95 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'e:\\node\\node.exe',
+1 verbose cli   'e:\\node\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install',
+1 verbose cli   '-g',
+1 verbose cli   'avoscloud-code' ]
+2 info using npm@1.4.23
+3 info using node@v0.10.30
+4 verbose cache add [ 'avoscloud-code', null ]
+5 verbose cache add name=undefined spec="avoscloud-code" args=["avoscloud-code",null]
+6 verbose parsed url { protocol: null,
+6 verbose parsed url   slashes: null,
+6 verbose parsed url   auth: null,
+6 verbose parsed url   host: null,
+6 verbose parsed url   port: null,
+6 verbose parsed url   hostname: null,
+6 verbose parsed url   hash: null,
+6 verbose parsed url   search: null,
+6 verbose parsed url   query: null,
+6 verbose parsed url   pathname: 'avoscloud-code',
+6 verbose parsed url   path: 'avoscloud-code',
+6 verbose parsed url   href: 'avoscloud-code' }
+7 silly lockFile b88c4b77-avoscloud-code avoscloud-code
+8 verbose lock avoscloud-code C:\Users\Administrator\AppData\Roaming\npm-cache\b88c4b77-avoscloud-code.lock
+9 silly lockFile b88c4b77-avoscloud-code avoscloud-code
+10 silly lockFile b88c4b77-avoscloud-code avoscloud-code
+11 verbose addNamed [ 'avoscloud-code', '' ]
+12 verbose addNamed [ null, '*' ]
+13 silly lockFile fea35884-avoscloud-code avoscloud-code@
+14 verbose lock avoscloud-code@ C:\Users\Administrator\AppData\Roaming\npm-cache\fea35884-avoscloud-code.lock
+15 silly addNameRange { name: 'avoscloud-code', range: '*', hasData: false }
+16 verbose request where is /avoscloud-code
+17 verbose request registry http://registry.npmjs.vitecho.com/
+18 verbose request id e309799f455b2cf4
+19 verbose url raw /avoscloud-code
+20 verbose url resolving [ 'http://registry.npmjs.vitecho.com/', './avoscloud-code' ]
+21 verbose url resolved http://registry.npmjs.vitecho.com/avoscloud-code
+22 verbose request where is http://registry.npmjs.vitecho.com/avoscloud-code
+23 info trying registry request attempt 1 at 19:22:53
+24 http GET http://registry.npmjs.vitecho.com/avoscloud-code
+25 http 404 http://registry.npmjs.vitecho.com/avoscloud-code
+26 verbose bad json <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+26 verbose bad json <html><head>
+26 verbose bad json <title>404 Not Found</title>
+26 verbose bad json </head><body>
+26 verbose bad json <h1>Not Found</h1>
+26 verbose bad json <p>The requested URL /avoscloud-code was not found on this server.</p>
+26 verbose bad json </body></html>
+27 error registry error parsing json
+28 verbose headers { date: 'Fri, 01 Aug 2014 11:21:16 GMT',
+28 verbose headers   server: 'Apache/2.0.63 (Unix) mod_ssl/2.0.63 OpenSSL/0.9.8b PHP/5.3.28',
+28 verbose headers   'content-length': '212',
+28 verbose headers   'keep-alive': 'timeout=15, max=100',
+28 verbose headers   connection: 'Keep-Alive',
+28 verbose headers   'content-type': 'text/html; charset=iso-8859-1',
+28 verbose headers   'x-pad': 'avoid browser bug' }
+29 silly registry.get cb [ 404,
+29 silly registry.get   { date: 'Fri, 01 Aug 2014 11:21:16 GMT',
+29 silly registry.get     server: 'Apache/2.0.63 (Unix) mod_ssl/2.0.63 OpenSSL/0.9.8b PHP/5.3.28',
+29 silly registry.get     'content-length': '212',
+29 silly registry.get     'keep-alive': 'timeout=15, max=100',
+29 silly registry.get     connection: 'Keep-Alive',
+29 silly registry.get     'content-type': 'text/html; charset=iso-8859-1',
+29 silly registry.get     'x-pad': 'avoid browser bug' } ]
+30 silly lockFile fea35884-avoscloud-code avoscloud-code@
+31 silly lockFile fea35884-avoscloud-code avoscloud-code@
+32 error SyntaxError: Unexpected token <
+32 error <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+32 error <html><head>
+32 error <title>404 Not Found</title>
+32 error </head><body>
+32 error <h1>Not Found</h1>
+32 error <p>The requested URL /avoscloud-code was not found on this server.</p>
+32 error </body></html>
+32 error
+32 error     at Object.parse (native)
+32 error     at RegClient.<anonymous> (e:\node\node_modules\npm\node_modules\npm-registry-client\lib\request.js:266:23)
+32 error     at Request._callback (e:\node\node_modules\npm\node_modules\npm-registry-client\lib\request.js:238:65)
+32 error     at Request.self.callback (e:\node\node_modules\npm\node_modules\request\request.js:123:22)
+32 error     at Request.emit (events.js:98:17)
+32 error     at Request.<anonymous> (e:\node\node_modules\npm\node_modules\request\request.js:893:14)
+32 error     at Request.emit (events.js:117:20)
+32 error     at IncomingMessage.<anonymous> (e:\node\node_modules\npm\node_modules\request\request.js:844:12)
+32 error     at IncomingMessage.emit (events.js:117:20)
+32 error     at _stream_readable.js:938:16
+33 error If you need help, you may report this *entire* log,
+33 error including the npm and node versions, at:
+33 error     <http://github.com/npm/npm/issues>
+34 error System Windows_NT 6.1.7601
+35 error command "e:\\node\\node.exe" "e:\\node\\node_modules\\npm\\bin\\npm-cli.js" "install" "-g" "avoscloud-code"
+36 error cwd f:\node workspace\miaomiao
+37 error node -v v0.10.30
+38 error npm -v 1.4.23
+39 error type unexpected_token
+40 verbose exit [ 1, true ]
