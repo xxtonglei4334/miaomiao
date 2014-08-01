@@ -2,7 +2,7 @@
 // For example:
 AV.Cloud.define("hello", function(request, response) {
 	response.success("Hello world!");
-})
+});
 
 function pushMessage(bdUserId, messages, response){
 				//配置push对象
@@ -44,6 +44,6 @@ AV.Cloud.define("sendMsg", function(request, response) {
 			response.error(error);
 		}
 	});
-})
+});
 
 var Push = require('cloud/push');
