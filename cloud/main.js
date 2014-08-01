@@ -52,4 +52,4 @@ AV.Cloud.define("test", function(request, response) {
 // 	});
 // });
 
-// var Push = require('cloud/push');
+var Push = require('cloud/push');
