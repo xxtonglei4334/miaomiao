@@ -10,30 +10,30 @@ AV.Cloud.define("test", function(request, response) {
 });
 
 
-// function pushMessage(bdUserId, messages, response){
-// 				//配置push对象
-// 			var opt = {
-// 				ak: '0C3jS31DYteNDW1HAM3TGcKV',
-// 				sk: '4mncUaMrC6L7h7Pqtf21XOx0azBGNcVa'
-// 			};
-// 			var client = new Push(opt);
-// 			//推送参数
-// 			var push_opt = {
-// 				push_type: 0,
-// 				user_id: bdUserId,
-// 				messages: JSON.stringify(messages),
-// 				msg_keys: JSON.stringify([new Date().getTime() + ""])
-// 			}
-// 			client.pushMsg(opt, function(err, result) {
-// 				if (err) {
-// 					console.log(err);
-// 					response.error(error);
-// 					return;
-// 				}
-// 				response.success(res);
-// 				console.log(result);
-// 			});
-// }
+function pushMessage(bdUserId, messages, response){
+				//配置push对象
+			var opt = {
+				ak: '0C3jS31DYteNDW1HAM3TGcKV',
+				sk: '4mncUaMrC6L7h7Pqtf21XOx0azBGNcVa'
+			};
+			var client = new Push(opt);
+			//推送参数
+			var push_opt = {
+				push_type: 0,
+				user_id: bdUserId,
+				messages: JSON.stringify(messages),
+				msg_keys: JSON.stringify([new Date().getTime() + ""])
+			}
+			client.pushMsg(opt, function(err, result) {
+				if (err) {
+					console.log(err);
+					response.error(error);
+					return;
+				}
+				response.success(res);
+				console.log(result);
+			});
+}
 
 // //发送消息函数
 // AV.Cloud.define("sendMsg", function(request, response) {
@@ -52,4 +52,4 @@ AV.Cloud.define("test", function(request, response) {
 // 	});
 // });
 
-var Push = require('cloud/push.js');
+// var Push = require('cloud/push.js');
