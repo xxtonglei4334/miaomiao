@@ -68,6 +68,9 @@ AV.Cloud.define("sendMsg", function(request, response) {
 				messages: JSON.stringify(messages),
 				msg_keys: JSON.stringify([new Date().getTime() + ""])
 			}
+
+			console.log(push_opt.messages);
+			console.log(push_opt.msg_keys);
 			client.pushMsg(opt, function(err, result) {
 				if (err) {
 					console.log(err);

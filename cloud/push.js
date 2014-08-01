@@ -153,6 +153,7 @@ function request(bodyArgs, path, sk, id, host, cb) {
     //add by tonglei 
     var urlStr = host + path;
 
+    console.log("tonglei:url" + urlStr);
 
 AV.Cloud.httpRequest({
   method: 'POST',
