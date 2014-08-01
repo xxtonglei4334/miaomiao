@@ -345,6 +345,9 @@ function checkOptions(options, must){
  * @param {String} [options.host] TaskQueue server host
  */
 function Push(options){
+
+  console.log("tonglei create push instance");
+
   var self = this;
   var opt = {
     ak: process.env.BAE_ENV_AK,
@@ -368,6 +371,8 @@ function Push(options){
   self.sk = opt.sk;
   self.host = opt.host;
   self.request_id = null;
+
+  console.log("tonglei create push instance end");
 }
 
 

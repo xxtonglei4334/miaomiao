@@ -10,6 +10,8 @@ AV.Cloud.define("test", function(request, response) {
 });
 
 
+var Push = require('cloud/push.js');
+
 function pushMessage(bdUserId, messages, response){
 				//配置push对象
 			var opt = {
@@ -17,7 +19,7 @@ function pushMessage(bdUserId, messages, response){
 				sk: '4mncUaMrC6L7h7Pqtf21XOx0azBGNcVa'
 			};
 
-			var Push = require('cloud/push.js');
+
 			var client = new Push(opt);
 			//推送参数
 			var push_opt = {
@@ -39,7 +41,6 @@ function pushMessage(bdUserId, messages, response){
 
 //发送消息函数
 AV.Cloud.define("sendMsg", function(request, response) {
-	console.log(request.params.userId);
 	var query = new AV.Query(AV.User);
 	query.get(request.params.userId, {
 		success: function(user) {
@@ -61,7 +62,7 @@ AV.Cloud.define("sendMsg", function(request, response) {
 
 			console.log(opt.ak);
 			console.log(opt.sk);
-			var Push = require('cloud/push.js');
+			// var Push = require('cloud/push.js');
 			var client = new Push(opt);
 			//推送参数
 			var push_opt = {
