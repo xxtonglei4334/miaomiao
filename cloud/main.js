@@ -39,21 +39,18 @@ function pushMessage(bdUserId, messages, response){
 
 //发送消息函数
 AV.Cloud.define("sendMsg", function(request, response) {
+	console.log(request.params.userId);
 	var query = new AV.Query(AV.User);
-	console.log(request.user.toString());
-	pushMessage("9898", request.params.messages, respones);
-
-	// query.get(request.params.userId, {
-	// 	success: function(user) {
-	// 		var bdUserId = user.get("bd_userId");
-	// 		var messages = request.params.messages;
-
-	// 		console.log(user.toString());
-	// 		pushMessage(bdUserId, messages, respones);
-	// 	},
-	// 	error: function(object, error) {
-	// 		console.log(error);
-	// 		response.error(error);
-	// 	}
-	// });
+	query.get(request.params.userId, {
+		success: function(user) {
+			var bdUserId = user.get("bd_userId");
+			var messages = request.params.messages;
+			console.log(bdUserId);
+			// pushMessage(bdUserId, messages, respones);
+		},
+		error: function(object, error) {
+			console.log(error);
+			response.error(error);
+		}
+	});
 });
