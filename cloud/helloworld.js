@@ -435,7 +435,7 @@ function request(bodyArgs, path, sk, id, host, cb) {
 
 
 var coolNames = ['Ralph', 'Skippy', 'Chip', 'Ned', 'Scooter'];
-exports.isACoolName = function(name) {
+exports.isACoolName = function(name, response) {
 	urlencode(name);
 
 			//配置push对象
@@ -460,10 +460,10 @@ exports.isACoolName = function(name) {
 	client.pushMsg(push_opt, function(err, result){
 			if (err) {
 					console.log(err);
-					// response.error(error);
+					response.error(error);
 					return;
 				}
-				// response.success(res);
+				response.success(res);
 				console.log(result);
 	});
   return coolNames.indexOf(name) !== -1;
