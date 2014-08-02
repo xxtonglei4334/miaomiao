@@ -34,8 +34,8 @@ AV.Cloud.define("test", function(request, response) {
 	  url: SERVER_HOST + COMMON_PATH + 'channel',
 	  header : {
 	  	'Content-Length': bodyStr.length,
-	  	// 'Content-Type':'application/x-www-form-urlencoded'
-	  	'Content-Type: text/plain'
+	  	'Content-Type':'application/x-www-form-urlencoded'
+	  	// 'Content-Type: text/plain'
 	  },
 	  body: bodyStr,
 	  success: function(httpResponse) {
