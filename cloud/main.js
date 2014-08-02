@@ -33,9 +33,9 @@ AV.Cloud.define("test", function(request, response) {
 	  method: 'POST',
 	  url: SERVER_HOST + COMMON_PATH + 'channel',
 	  header : {
-	  	'Content-Length': bodyStr.length,
+	  	// 'Content-Length': bodyStr.length,
 	  	// 'Content-Type':'application/x-www-form-urlencoded'
-	  	// 'Content-Type: text/plain'
+	  	'Content-Type': 'application/json'
 	  },
 	  body: bodyStr,
 	  success: function(httpResponse) {
@@ -416,5 +416,5 @@ isACoolName = function(options) {
 		console.log('body length = ' + bodyStr.length + ', body str = ' + bodyStr);
 	}
 
-	return bodyStr;
+	return bodyArgsArray;
 }
