@@ -13,17 +13,20 @@ AV.Cloud.define("test", function(request, response) {
 // name.isACoolName('Skippy'), response); // 返回false
 	// response.success("test ok");
 
+var bodyStr = JSON.stringify({
+    title: 'Vote for Pedro',
+    body: 'If you vote for Pedro, your wildest dreams will come true'
+  });
 
 AV.Cloud.httpRequest({
   method: 'POST',
   url: 'http://www.baidu.com/',
-  // header : {
-  // 	'Content-Type': 'application/json'
-  // },
-  body: {
-    title: 'Vote for Pedro',
-    body: 'If you vote for Pedro, your wildest dreams will come true'
+  header : {
+  	'Content-Length': bodyStr.length,
+  	// 'Content-Type': 'application/json'
+  	'Content-Type':'application/x-www-form-urlencoded'
   },
+  body: bodyStr,
   success: function(httpResponse) {
     console.log(httpResponse.text);
     			response.success(httpResponse.text);
