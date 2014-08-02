@@ -106,6 +106,65 @@ function getSign(method, url, params, sk) {
     return sign;
 }
 
+/*
+ * Check options
+ * @param {Object} options
+ * @param {Array} must Properties are must in options
+ */
+function checkOptions(options, must){
+
+  must.forEach(function (ele) {
+    if (!options.hasOwnProperty(ele)) {
+      var err = errMsg.INVALID_ARGS + ': ' + ele + ' is must';
+      throw new Error(err);
+    }
+  });
+
+  function checkType(type, condition) {
+
+  	for (var i = 0; i < condition.length; i++) {
+  	  if (type === condition[i]) {
+  	  	return true
+  	  }
+  	}
+  	return false;
+  }
+
+  if (options['user_id'] && !(typeof options['user_id'] === 'string' && options['user_id'].length <= 256)) {
+    throw new Error(errMsg.INVALID_USER_ID);
+  }
+  if (options['start'] && !(typeof options['start'] === 'number' && options['start'] >= 0)) {
+    throw new Error(errMsg.INVALID_START);
+  }
+  if (options['limit'] && !(typeof options['limit'] === 'number' && options['limit'] > 0)) {
+    throw new Error(errMsg.INVALID_LIMIT);
+  }
+  if (options['channel_id'] && !(typeof options['channel_id'] === 'string')) {
+    throw new Error(errMsg.INVALID_CHANNEL_ID);
+  }
+  if (options['push_type'] && !(typeof options['push_type'] === 'number' && checkType(options['push_type'], [1, 2, 3]))) {
+    throw new Error(errMsg.INVALID_PUSH_TYPE);
+  }
+  if (options['device_type'] && !(typeof options['device_type'] === 'number' && checkType(options['device_type'], [1, 2, 3, 4, 5]))) {
+    throw new Error(errMsg.INVALID_DEVICE_TYPE);
+  }
+  if (options['message_type'] && !(typeof options['message_type'] === 'number' && checkType(options['message_type'], [0, 1]))) {
+    throw new Error(errMsg.INVALID_MESSAGE_TYPE);
+  }
+  if (options['tag'] && !(typeof options['tag'] === 'string' && options['tag'].length <= 128)) {
+    throw new Error(errMsg.INVALID_TAG);
+  }
+  if (options['messages'] && !(typeof options['messages'] === 'string')) {
+    throw new Error(errMsg.INVALID_MESSAGES);
+  }
+  if (options['msg_keys'] && !(typeof options['msg_keys'] === 'string')) {
+    throw new Error(errMsg.INVALID_MSG_KEYS);
+  }
+  if (options['message_expires'] && !(typeof options['message_expires'] === 'string')) {
+    throw new Error(errMsg.INVALID_MESSAGE_EXPIRES);
+  }
+}
+
 var coolNames = ['Ralph', 'Skippy', 'Chip', 'Ned', 'Scooter'];
 exports.isACoolName = function(name) {
 	urlencode(name);
