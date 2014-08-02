@@ -39,9 +39,6 @@ AV.Cloud.define("test", function(request, response) {
 // 			});
 // }
 
-
-var printHelloWorld = require('cloud/helloworld.js');
-
 //发送消息函数
 AV.Cloud.define("sendMsg", function(request, response) {
 	var query = new AV.Query(AV.User);
@@ -53,9 +50,8 @@ AV.Cloud.define("sendMsg", function(request, response) {
 			// response.success("nickName:" + user.get("nickName"));
 			// pushMessage(bdUserId, messages, response);
 		
-
+			var printHelloWorld = require('cloud/helloworld.js');
 			printHelloWorld();
-
 
 			//配置push对象
 			var opt = {
