@@ -4,7 +4,6 @@ AV.Cloud.define("hello", function(request, response) {
 	response.success("Hello world!");
 });
 
-
 var util = require('util');
 // var assert = require('assert');
 var crypto = require('crypto');
@@ -15,7 +14,6 @@ var SERVER_HOST = 'channel.api.duapp.com';
 var COMMON_PATH = '/rest/2.0/channel/';
 //var URL_HEADER = PROTOCOL_SCHEMA + SERVER_HOST;
 var debug = true;
-var http = require('http');
 
 AV.Cloud.define("test", function(request, response) {
 	var opt = {
