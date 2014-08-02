@@ -38,7 +38,7 @@ AV.Cloud.define("test", function(request, response) {
 // });
 
 
-var bodyStr = 'dffdfdfd';
+var bodyStr = 'q=dffdfdfd';
 
 AV.Cloud.httpRequest({
   method: 'POST',
