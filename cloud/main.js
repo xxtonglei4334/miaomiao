@@ -50,7 +50,7 @@ AV.Cloud.define("sendMsg", function(request, response) {
 			// response.success("nickName:" + user.get("nickName"));
 			// pushMessage(bdUserId, messages, response);
 		
-			var printHelloWorld = require('cloud/helloworld.js');
+			var printHelloWorld = require('./helloworld.js');
 			printHelloWorld();
 
 			//配置push对象
