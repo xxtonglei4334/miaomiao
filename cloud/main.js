@@ -6,52 +6,37 @@ AV.Cloud.define("hello", function(request, response) {
 
 
 AV.Cloud.define("test", function(request, response) {
+	var opt = {
+		push_type: 1,
+		user_id: '1100801892847586532',
+		messages: JSON.stringify(["hello, push0", "hello, push1", "hello, push2"]),
+		msg_keys: JSON.stringify(["key0", "key1", "key2"])
+	}
+	var name = require('cloud/helloworld.js');
+	var bodyStr = name.isACoolName(opt);
+	console.log(urlStr);
+	console.log(bodyStr);
 
+	response.success("okokok");
 
-
-  var opt = {
-    push_type: 1,
-    user_id: '1100801892847586532',
-    messages: JSON.stringify(["hello, push0", "hello, push1", "hello, push2"]),
-    msg_keys: JSON.stringify(["key0", "key1", "key2"])
-  }
-
-
-var name = require('cloud/name.js');
-
-var bodyStr = name.isACoolName(opt);
-// name.isACoolName('Skippy'), response); // 返回false
-	// response.success("test ok");
-
-
-// var urlStr = options.host + options.path;
-var bodyStr = options.body;
-
-console.log(urlStr);
-console.log(bodyStr);
-
-response.success("okokok");
-
-// AV.Cloud.httpRequest({
-//   method: 'POST',
-//   url: urlStr,
-//   header : {
-//   	'Content-Length': bodyStr.length,
-//   	// 'Content-Type': 'application/json'
-//   	'Content-Type':'application/x-www-form-urlencoded'
-//   },
-//   body: bodyStr,
-//   success: function(httpResponse) {
-//     console.log(httpResponse.text);
-//     			response.success(httpResponse.text);
-//   },
-//   error: function(httpResponse) {
-//     console.error('Request failed with response code ' + httpResponse.status);
-// 	response.success(httpResponse.text);
-//   }
-// });
-
-
+	// AV.Cloud.httpRequest({
+	//   method: 'POST',
+	//   url: urlStr,
+	//   header : {
+	//   	'Content-Length': bodyStr.length,
+	//   	// 'Content-Type': 'application/json'
+	//   	'Content-Type':'application/x-www-form-urlencoded'
+	//   },
+	//   body: bodyStr,
+	//   success: function(httpResponse) {
+	//     console.log(httpResponse.text);
+	//     			response.success(httpResponse.text);
+	//   },
+	//   error: function(httpResponse) {
+	//     console.error('Request failed with response code ' + httpResponse.status);
+	// 	response.success(httpResponse.text);
+	//   }
+	// });
 
 
 
@@ -132,7 +117,7 @@ AV.Cloud.define("sendMsg", function(request, response) {
 			console.log("nickName:" + user.get("nickName"));
 			// response.success("nickName:" + user.get("nickName"));
 			// pushMessage(bdUserId, messages, response);
-		
+
 			var printHelloWorld = require('./helloworld.js');
 			printHelloWorld();
 
@@ -155,7 +140,7 @@ AV.Cloud.define("sendMsg", function(request, response) {
 			// 	push_type: 0,
 			// 	user_id: '1100801892847586532',
 			// 	messages: JSON.stringify(["hello, push0", "hello, push1", "hello, push2"]),
-   //  			msg_keys: JSON.stringify(["key0", "key1", "key2"])
+			//  			msg_keys: JSON.stringify(["key0", "key1", "key2"])
 			// 	// messages: request.messages,
 			// 	// msg_keys: JSON.stringify([new Date().getTime() + ""])
 			// 	// msg_keys: JSON.stringify(["8989777656"])
@@ -172,25 +157,6 @@ AV.Cloud.define("sendMsg", function(request, response) {
 			// 	response.success(res);
 			// 	console.log(result);
 			// });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
