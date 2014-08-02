@@ -398,7 +398,7 @@ isACoolName = function(options) {
 	};
 
 	// http
-	opt.sign = getSign('POST', PROTOCOL_SCHEMA + host + path, opt, sk);
+	opt.sign = getSign('POST', PROTOCOL_SCHEMA + SERVER_HOST + path, opt, sk);
 
 
 	var bodyArgsArray = [];
