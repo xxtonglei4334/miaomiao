@@ -14,38 +14,25 @@ AV.Cloud.define("test", function(request, response) {
 	// response.success("test ok");
 
 
-
 AV.Cloud.httpRequest({
-  url: 'http://www.example.com/',
-  timeout: 15000,
-  headers: {
-    'Content-Type': 'application/json'
+  method: 'POST',
+  url: 'http://www.baidu.com/',
+  // header : {
+  // 	'Content-Type': 'application/json'
+  // },
+  body: {
+    title: 'Vote for Pedro',
+    body: 'If you vote for Pedro, your wildest dreams will come true'
   },
   success: function(httpResponse) {
     console.log(httpResponse.text);
+    			response.success(httpResponse.text);
   },
   error: function(httpResponse) {
     console.error('Request failed with response code ' + httpResponse.status);
+	response.error(httpResponse.status + "error");
   }
 });
-
-
-// AV.Cloud.httpRequest({
-//   method: 'POST',
-//   url: 'http://www.baidu.com/',
-//   body: {
-//     title: 'Vote for Pedro',
-//     body: 'If you vote for Pedro, your wildest dreams will come true'
-//   },
-//   success: function(httpResponse) {
-//     console.log(httpResponse.text);
-//     			response.success(httpResponse.text);
-//   },
-//   error: function(httpResponse) {
-//     console.error('Request failed with response code ' + httpResponse.status);
-// 	response.error(httpResponse.status + "error");
-//   }
-// });
 
 
 	// var bodyStr = "q=fdfdf";
