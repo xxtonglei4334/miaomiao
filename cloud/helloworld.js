@@ -165,6 +165,37 @@ function checkOptions(options, must){
   }
 }
 
+/****
+* added by tonglei
+* httpResponese 
+* callback function(err, result)
+*/
+function parseRespone(requestId, httpResponese, cb){
+  if(httpResponse.status != 200){
+                      var error_code = 'Unknown';
+                if (jsonObj['error_code'] !== undefined) {
+                    error_code = jsonObj['error_code'];
+                }
+
+                var error_msg = 'Unknown';
+                if (jsonObj['error_msg'] !== undefined) {
+                    error_msg = jsonObj['error_msg'];
+                }
+
+                var request_id = 'Unknown';
+                if (jsonObj['error_msg'] !== undefined) {
+                    request_id = jsonObj['request_id'];
+                }
+
+                errObj = new Error('Push error code: ' + error_code +
+                                    ', error msg: ' + error_msg +
+                                    ', request id: ' + request_id);
+    }
+    cb(errObj, jsonObj);
+}
+
+
+
 /*
  * @name Push
  * @constructor
