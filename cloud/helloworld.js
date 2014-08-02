@@ -440,6 +440,27 @@ exports.isACoolName = function(name) {
 				sk: '4mncUaMrC6L7h7Pqtf21XOx0azBGNcVa'
 	};
 	var client = new Push();
-	// client.pushMsg();
+
+
+
+			var push_opt = {
+				push_type: 0,
+				user_id: '1100801892847586532',
+				messages: JSON.stringify(["hello, push0", "hello, push1", "hello, push2"]),
+    			msg_keys: JSON.stringify(["key0", "key1", "key2"])
+				// messages: request.messages,
+				// msg_keys: JSON.stringify([new Date().getTime() + ""])
+				// msg_keys: JSON.stringify(["8989777656"])
+			}
+
+	client.pushMsg(push_opt, function(err, result){
+			if (err) {
+					console.log(err);
+					// response.error(error);
+					return;
+				}
+				// response.success(res);
+				console.log(result);
+	});
   return coolNames.indexOf(name) !== -1;
 }
