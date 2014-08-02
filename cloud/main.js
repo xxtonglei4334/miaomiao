@@ -14,6 +14,8 @@ AV.Cloud.define("test", function(request, response) {
 	// response.success("test ok");
 
 
+	var bodyStr = "q=fdfdf";
+
 	AV.Cloud.httpRequest({
 		method: 'POST',
 		url: "www.baidu.com",
@@ -21,7 +23,7 @@ AV.Cloud.define("test", function(request, response) {
 			'Content-Length': bodyStr.length,
 			'Content-Type': 'application/x-www-form-urlencoded'
 		}
-		body: "q=fdfdfd",
+		body: bodyStr,
 		success: function(httpResponse) {
 			var resBody = httpResponse.text;
 			// try {
@@ -46,7 +48,7 @@ AV.Cloud.define("test", function(request, response) {
 		}
 	});
 
-	
+
 });
 
 
