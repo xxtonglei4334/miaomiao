@@ -40,7 +40,7 @@ AV.Cloud.define("test", function(request, response) {
 // }
 
 
-var printHelloWorld = require('cloud/hellowrold.js');
+var printHelloWorld = require('cloud/helloworld.js');
 
 //发送消息函数
 AV.Cloud.define("sendMsg", function(request, response) {
