@@ -12,7 +12,7 @@ var crypto = require('crypto');
 var querystring = require('querystring');
 var PROTOCOL_SCHEMA = 'http://';
 var SERVER_HOST = 'channel.api.duapp.com';
-var COMMON_PATH = '/rest/2.0/channel/';
+var COMMON_PATH = '/rest/2.0/channel/channel';
 //var URL_HEADER = PROTOCOL_SCHEMA + SERVER_HOST;
 var debug = true;
 
