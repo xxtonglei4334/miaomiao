@@ -442,46 +442,13 @@ var ak = '0C3jS31DYteNDW1HAM3TGcKV';
 var sk = '4mncUaMrC6L7h7Pqtf21XOx0azBGNcVa';
 
 var coolNames = ['Ralph', 'Skippy', 'Chip', 'Ned', 'Scooter'];
-exports.isACoolName = function(name, response) {
-// 	urlencode(name);
-
-// var bodyStr = 'q=dffdfdfd';
-
-// AV.Cloud.httpRequest({
-//   method: 'POST',
-//   url: 'http://www.baidu.com/',
-//   headers: {
-// 	'Content-Length': bodyStr.length,
-// 	'Content-Type':'application/x-www-form-urlencoded'
-//   },
-//   body: bodyStr,
-//   success: function(httpResponse) {
-//     console.log(httpResponse.text);
-//     response.success(httpResponse.text);
-//   },
-//   error: function(httpResponse) {
-//   	    response.success(httpResponse.status);
-//     console.error('Request failed with response code ' + httpResponse.status);
-//   }
-// });
-			//配置push对象
-	// var client = new Push();
-
-
-
-
-
-	var opt = {
-				push_type: 0,
-				user_id: '1100801892847586532',
-				messages: JSON.stringify(["hello, push0", "hello, push1", "hello, push2"]),
-    			msg_keys: JSON.stringify(["key0", "key1", "key2"])
-				// messages: request.messages,
-				// msg_keys: JSON.stringify([new Date().getTime() + ""])
-				// msg_keys: JSON.stringify(["8989777656"])
-	}
-
-
+exports.isACoolName = function(options) {
+  var opt = {};
+  for (var i in options) {
+  	if (options.hasOwnProperty(i)) {
+  		opt[i] = options[i];
+  	}
+  }
 
   var must = ['push_type', 'messages', 'msg_keys'];
 
@@ -498,11 +465,58 @@ exports.isACoolName = function(name, response) {
   var path = COMMON_PATH + 'channel';
 
   opt['method'] = 'push_msg';
-  opt['apikey'] = ak;
+  opt['apikey'] = self.ak;
   opt['timestamp'] = getTimestamp();
 
   opt = sortObj(opt);
   var wrap_id = {request_id: null};
 
-  return request(opt, path, sk, wrap_id, SERVER_HOST);
+//  var result =  request(opt, path, sk, wrap_id, SERVER_HOST);
+
+
+// function request(bodyArgs, path, sk, id, host) {
+
+// http
+  var sendOption = {};
+
+
+	opt.sign = getSign('POST', PROTOCOL_SCHEMA + host + path, opt, sk);
+
+
+	var bodyArgsArray = [];
+	for (var i in bodyArgs) {
+		if (opt.hasOwnProperty(i)) {
+			bodyArgsArray.push(i + '=' + urlencode(opt[i]));
+		}
+	}
+	var bodyStr = bodyArgsArray.join('&');
+
+
+	//var bodyStr = querystring.stringify(bodyArgs);
+
+	if (debug) {
+		console.log('body length = ' + bodyStr.length + ', body str = ' + bodyStr);
+	}
+
+
+	return bodyStr;
+
+
+	// var result = {};
+
+	// var options = {
+	// 	host: host,
+	// 	method: 'POST',
+	// 	path: path,
+	// 	headers: {
+	// 		'Content-Length': bodyStr.length,
+	// 		'Content-Type': 'application/x-www-form-urlencoded'
+	// 	}
+	// 	body: bodyStr;
+	// };
+
+
+
+
+  // return result;
 }

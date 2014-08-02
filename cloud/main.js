@@ -7,14 +7,24 @@ AV.Cloud.define("hello", function(request, response) {
 
 AV.Cloud.define("test", function(request, response) {
 
+
+
+  var opt = {
+    push_type: 1,
+    user_id: id0,
+    messages: JSON.stringify(["hello, push0", "hello, push1", "hello, push2"]),
+    msg_keys: JSON.stringify(["key0", "key1", "key2"])
+  }
+
+
 var name = require('cloud/name.js');
 
-var options = name.isACoolName('Fred', response);
+var bodyStr = name.isACoolName(opt);
 // name.isACoolName('Skippy'), response); // 返回false
 	// response.success("test ok");
 
 
-var urlStr = options.host + options.path;
+// var urlStr = options.host + options.path;
 var bodyStr = options.body;
 
 console.log(urlStr);
