@@ -62,8 +62,9 @@ AV.Cloud.define("sendMsg", function(request, response) {
 
 			console.log(opt.ak);
 			console.log(opt.sk);
-			var Push = require('./push.js');
+			console.log("ok");
 			response.success("ok");
+			// var Push = require('./push.js');
 			// var client = new Push(opt);
 			// //推送参数
 			// var push_opt = {
