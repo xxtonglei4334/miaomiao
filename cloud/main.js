@@ -389,7 +389,7 @@ isACoolName = function(options) {
 	var path = COMMON_PATH + 'channel';
 
 	opt['method'] = 'push_msg';
-	opt['apikey'] = self.ak;
+	opt['apikey'] = ak;
 	opt['timestamp'] = getTimestamp();
 
 	opt = sortObj(opt);
