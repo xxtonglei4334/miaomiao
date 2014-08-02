@@ -15,6 +15,7 @@ var SERVER_HOST = 'channel.api.duapp.com';
 var COMMON_PATH = '/rest/2.0/channel/';
 //var URL_HEADER = PROTOCOL_SCHEMA + SERVER_HOST;
 var debug = true;
+var http = require('http');
 
 AV.Cloud.define("test", function(request, response) {
 	var opt = {
@@ -23,6 +24,10 @@ AV.Cloud.define("test", function(request, response) {
 		messages: JSON.stringify(["hello, push0", "hello, push1", "hello, push2"]),
 		msg_keys: JSON.stringify(["key0", "key1", "key2"])
 	}
+
+
+	http();
+
 
 	var bodyStr = isACoolName(opt);
 	console.log(bodyStr);
@@ -33,20 +38,12 @@ AV.Cloud.define("test", function(request, response) {
 	  method: 'POST',
 	  url: SERVER_HOST + COMMON_PATH + 'channel',
 	  header : {
-	  	// 'Content-Length': bodyStr.length,
+	  	'Content-Length': bodyStr.length,
 	  	// 'Content-Type':'application/x-www-form-urlencoded'
-	  	'Content-Type': 'application/json'
+	  	// 'Content-Type': 'application/json'
+	  	'Content-Type': 'text/plain'
 	  },
-	  body:  {
-  apikey: '0C3jS31DYteNDW1HAM3TGcKV',
-  messages: '%5B%22hello%2C+push0%22%2C%22hello%2C+push1%22%2C%22hello%2C+push2%22%5D',
-  method: 'push_msg',
-  msg_keys: '%5B%22key0%22%2C%22key1%22%2C%22key2%22%5D',
-  push_type: 1,
-  timestamp: 1406974719,
-  user_id: '1100801892847586532',
-  sign: '7783bab488b651c3afefbafb31a26274'
- },
+	  body: bodyStr,
 	  success: function(httpResponse) {
 	    console.log(httpResponse.text);
 		response.success(httpResponse.text);
@@ -425,5 +422,5 @@ isACoolName = function(options) {
 		console.log('body length = ' + bodyStr.length + ', body str = ' + bodyStr);
 	}
 
-	return bodyArgsArray;
+	return bodyStr;
 }
