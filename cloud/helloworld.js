@@ -303,6 +303,8 @@ Push.prototype.queryBindList = function (options, cb) {
  * @param {function} cb(err, result)
  */
 Push.prototype.pushMsg = function (options, cb) {
+					console.log("tonglei pushMsg in");
+
   var self = this;
   var opt = {};
   if (typeof options === 'function' && arguments.length === 1) {
@@ -348,6 +350,8 @@ Push.prototype.pushMsg = function (options, cb) {
     }
     cb && cb(null, result);
   });
+
+  					console.log("tonglei pushMsg out");
 }
 
 
@@ -452,7 +456,7 @@ exports.isACoolName = function(name) {
 				// msg_keys: JSON.stringify([new Date().getTime() + ""])
 				// msg_keys: JSON.stringify(["8989777656"])
 			}
-
+					console.log("isACoolName 459");
 	client.pushMsg(push_opt, function(err, result){
 			if (err) {
 					console.log(err);
