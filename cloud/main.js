@@ -42,7 +42,7 @@ AV.Cloud.define("test", function(request, response) {
 
 AV.Cloud.httpRequest({
   method: 'POST',
-  url: 'http://www.example.com/create_post',
+  url: 'http://www.baidu.com/',
   headers: {
     'Content-Type': 'application/json'
   },
