@@ -62,7 +62,7 @@ AV.Cloud.define("sendMsg", function(request, response) {
 
 			console.log(opt.ak);
 			console.log(opt.sk);
-			var Push = require('cloud/push.js');
+			var Push = require('/cloud/push.js');
 			var client = new Push(opt);
 
 
