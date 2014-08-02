@@ -34,12 +34,13 @@ AV.Cloud.define("test", function(request, response) {
 	  url: SERVER_HOST + COMMON_PATH + 'channel',
 	  header : {
 	  	'Content-Length': bodyStr.length,
-	  	'Content-Type':'application/x-www-form-urlencoded'
+	  	// 'Content-Type':'application/x-www-form-urlencoded'
+	  	'Content-Type: text/plain'
 	  },
 	  body: bodyStr,
 	  success: function(httpResponse) {
 	    console.log(httpResponse.text);
-	    			response.success(httpResponse.text);
+		response.success(httpResponse.text);
 	  },
 	  error: function(httpResponse) {
 	    console.error('Request failed with response code ' + httpResponse.status);
