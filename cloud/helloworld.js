@@ -165,8 +165,169 @@ function checkOptions(options, must){
   }
 }
 
+/*
+ * @name Push
+ * @constructor
+ * @param {Object} options Set ak/sk/host
+ * @param {String} [options.ak] User API key
+ * @param {String} [options.sk] User secret key
+ * @param {String} [options.host] TaskQueue server host
+ */
+function Push(options){
+
+  console.log("tonglei create push instance");
+
+  var self = this;
+  var opt = {
+    ak: process.env.BAE_ENV_AK,
+    sk: process.env.BAE_ENV_SK,
+    host: process.env.BAE_ENV_ADDR_CHANNEL || SERVER_HOST
+  }
+
+  if (options) {
+    for (var i in options) {
+      if (options.hasOwnProperty(i)) {
+        if (typeof options[i] === 'string') {
+          opt[i] = options[i];
+        } else {
+          throw new Error('Invalid ak, sk, or counter host')
+        }
+      }
+    }
+  }
+
+  self.ak = opt.ak;
+  self.sk = opt.sk;
+  self.host = opt.host;
+  self.request_id = null;
+
+  console.log("tonglei create push instance end");
+}
+
+
+
+
+/*
+ * Query user binding list
+ * @param {Object} options
+ * @param {String} options.user_id User id, the length of user_id must be less than 257B
+ * @param {Number} [options.device_type] Device type
+ * @param {Number} [options.start] Start postion, default value is 0
+ * @param {Number} [options.limit] Numbers of lists, default value is 10
+ * @param {function} cb(err, result)
+ */
+Push.prototype.queryBindList = function (options, cb) {
+  var self = this;
+  var opt = {};
+  if (typeof options === 'function' && arguments.length === 1) {
+    cb = options;
+    options = {}
+  }
+
+  if (!options) {
+  	options = {}
+  }
+
+  for (var i in options) {
+    if (options.hasOwnProperty(i)) {
+      opt[i] = options[i];
+    }
+  }
+
+  checkOptions(opt, ['user_id']);
+
+  var path = COMMON_PATH + (options['channel_id'] || 'channel');
+
+  opt['method'] = 'query_bindlist';
+  opt['apikey'] = self.ak;
+  opt['timestamp'] = getTimestamp();
+
+  opt = sortObj(opt);
+  var wrap_id = {request_id: null};
+  request(opt, path, self.sk, wrap_id, self.host, function (err, result) {
+    self.request_id = wrap_id.request_id;
+    if (err) {
+      cb && cb(err);
+      return;
+    }
+    cb && cb(null, result);
+  });
+}
+
+
+
+
+/*
+ * Push message
+ * @param {Object} options
+ * @param {Number} options.push_type Push type
+ * @param {String} options.messages Message list
+ * @param {String} options.msg_keys
+ * @param {String} [options.user_id]
+ * @param {String} [options.tag]
+ * @param {Number} [options.channel_id]
+ * @param {Number} [options.device_type] Device type
+ * @param {Number} [options.message_type]
+ * @param {Number} [options.message_expires]
+ * @param {function} cb(err, result)
+ */
+Push.prototype.pushMsg = function (options, cb) {
+  var self = this;
+  var opt = {};
+  if (typeof options === 'function' && arguments.length === 1) {
+    cb = options;
+    options = {}
+  }
+
+  if (!options) {
+  	options = {}
+  }
+
+  for (var i in options) {
+  	if (options.hasOwnProperty(i)) {
+  		opt[i] = options[i];
+  	}
+  }
+
+  var must = ['push_type', 'messages', 'msg_keys'];
+
+  if (opt['push_type'] === 1) {
+  	must.push('user_id');
+  } else if (opt['push_type'] === 2) {
+  	must.push('tag');
+  } else {
+
+  }
+
+  checkOptions(opt, must);
+
+  var path = COMMON_PATH + 'channel';
+
+  opt['method'] = 'push_msg';
+  opt['apikey'] = self.ak;
+  opt['timestamp'] = getTimestamp();
+
+  opt = sortObj(opt);
+  var wrap_id = {request_id: null};
+  request(opt, path, self.sk, wrap_id, self.host, function (err, result) {
+    self.request_id = wrap_id.request_id;
+    if (err) {
+      cb && cb(err);
+      return;
+    }
+    cb && cb(null, result);
+  });
+}
+
 var coolNames = ['Ralph', 'Skippy', 'Chip', 'Ned', 'Scooter'];
 exports.isACoolName = function(name) {
 	urlencode(name);
+
+			//配置push对象
+	var opt = {
+				ak: '0C3jS31DYteNDW1HAM3TGcKV',
+				sk: '4mncUaMrC6L7h7Pqtf21XOx0azBGNcVa'
+	};
+	var client = new Push();
   return coolNames.indexOf(name) !== -1;
 }
