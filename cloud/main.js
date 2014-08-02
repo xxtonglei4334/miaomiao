@@ -23,10 +23,6 @@ AV.Cloud.define("test", function(request, response) {
 		msg_keys: JSON.stringify(["key0", "key1", "key2"])
 	}
 
-
-	http();
-
-
 	var bodyStr = isACoolName(opt);
 	console.log(bodyStr);
 
