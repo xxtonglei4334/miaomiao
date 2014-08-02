@@ -12,32 +12,35 @@ AV.Cloud.define("test", function(request, response) {
 
 // var Push = require('cloud/push.js');
 
-function pushMessage(bdUserId, messages, response){
-				//配置push对象
-			var opt = {
-				ak: '0C3jS31DYteNDW1HAM3TGcKV',
-				sk: '4mncUaMrC6L7h7Pqtf21XOx0azBGNcVa'
-			};
+// function pushMessage(bdUserId, messages, response){
+// 				//配置push对象
+// 			var opt = {
+// 				ak: '0C3jS31DYteNDW1HAM3TGcKV',
+// 				sk: '4mncUaMrC6L7h7Pqtf21XOx0azBGNcVa'
+// 			};
 
 
-			var client = new Push(opt);
-			//推送参数
-			var push_opt = {
-				push_type: 0,
-				user_id: '1100801892847586532',
-				messages: JSON.stringify(messages),
-				msg_keys: JSON.stringify([new Date().getTime() + ""])
-			}
-			client.pushMsg(opt, function(err, result) {
-				if (err) {
-					console.log(err);
-					response.error(error);
-					return;
-				}
-				response.success(res);
-				console.log(result);
-			});
-}
+// 			var client = new Push(opt);
+// 			//推送参数
+// 			var push_opt = {
+// 				push_type: 0,
+// 				user_id: '1100801892847586532',
+// 				messages: JSON.stringify(messages),
+// 				msg_keys: JSON.stringify([new Date().getTime() + ""])
+// 			}
+// 			client.pushMsg(opt, function(err, result) {
+// 				if (err) {
+// 					console.log(err);
+// 					response.error(error);
+// 					return;
+// 				}
+// 				response.success(res);
+// 				console.log(result);
+// 			});
+// }
+
+
+var printHelloWorld = require('cloud/hellowrold.js');
 
 //发送消息函数
 AV.Cloud.define("sendMsg", function(request, response) {
@@ -51,7 +54,7 @@ AV.Cloud.define("sendMsg", function(request, response) {
 			// pushMessage(bdUserId, messages, response);
 		
 
-
+			printHelloWorld();
 
 
 			//配置push对象
@@ -62,8 +65,8 @@ AV.Cloud.define("sendMsg", function(request, response) {
 
 			console.log(opt.ak);
 			console.log(opt.sk);
-			var Push = require('/cloud/push.js');
-			var client = new Push(opt);
+			// var Push = require('/cloud/push.js');
+			// var client = new Push(opt);
 
 			console.log("ok");
 			response.success("ok");
