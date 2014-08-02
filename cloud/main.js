@@ -9,7 +9,7 @@ AV.Cloud.define("test", function(request, response) {
 
 // var name = require('cloud/name.js');
 
-// name.isACoolName('Fred', response);
+name.isACoolName('Fred', response);
 // name.isACoolName('Skippy'), response); // 返回false
 	// response.success("test ok");
 
@@ -38,25 +38,7 @@ AV.Cloud.define("test", function(request, response) {
 // });
 
 
-var bodyStr = 'q=dffdfdfd';
 
-AV.Cloud.httpRequest({
-  method: 'POST',
-  url: 'http://www.baidu.com/',
-  headers: {
-	'Content-Length': bodyStr.length,
-	'Content-Type':'application/x-www-form-urlencoded'
-  },
-  body: bodyStr,
-  success: function(httpResponse) {
-    console.log(httpResponse.text);
-    response.success(httpResponse.text);
-  },
-  error: function(httpResponse) {
-  	    response.success(httpResponse.status);
-    console.error('Request failed with response code ' + httpResponse.status);
-  }
-});
 
 
 	// var bodyStr = "q=fdfdf";

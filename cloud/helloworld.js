@@ -437,37 +437,25 @@ var coolNames = ['Ralph', 'Skippy', 'Chip', 'Ned', 'Scooter'];
 exports.isACoolName = function(name, response) {
 	urlencode(name);
 
-	AV.Cloud.httpRequest({
-		method: 'POST',
-		url: "www.baidu.com",
-		headers: {
-			'Content-Length': bodyStr.length,
-			'Content-Type': 'application/x-www-form-urlencoded'
-		}
-		body: "q=fdfdfd",
-		success: function(httpResponse) {
-			var resBody = httpResponse.text;
-			// try {
-			// 	var jsonObj = JSON.parse(resBody);
-			// } catch (e) {
-			// 	cb && cb(e);
-			// 	return;
-			// }
+var bodyStr = 'q=dffdfdfd';
 
-
-			response.success(httpResponse.text);
-
-			// var errObj = null;
-			// id.request_id = jsonObj['request_id'];
-			// parseRespone(id.request_id, httpResponse, cb);
-			// console.log(httpResponse.text);
-		},
-		error: function(httpResponse) {
-			response.error(httpResponse.status + "error");
-			// parseRespone(id.request_id, httpResponse, cb);
-			// console.error('Request failed with response code ' + httpResponse.status);
-		}
-	});
+AV.Cloud.httpRequest({
+  method: 'POST',
+  url: 'http://www.baidu.com/',
+  headers: {
+	'Content-Length': bodyStr.length,
+	'Content-Type':'application/x-www-form-urlencoded'
+  },
+  body: bodyStr,
+  success: function(httpResponse) {
+    console.log(httpResponse.text);
+    response.success(httpResponse.text);
+  },
+  error: function(httpResponse) {
+  	    response.success(httpResponse.status);
+    console.error('Request failed with response code ' + httpResponse.status);
+  }
+});
 	// 		//配置push对象
 	// var opt = {
 	// 			ak: '0C3jS31DYteNDW1HAM3TGcKV',
