@@ -5,6 +5,17 @@ AV.Cloud.define("hello", function(request, response) {
 });
 
 
+var util = require('util');
+// var assert = require('assert');
+var crypto = require('crypto');
+// var http = require('http');
+var querystring = require('querystring');
+var PROTOCOL_SCHEMA = 'http://';
+var SERVER_HOST = 'channel.api.duapp.com';
+var COMMON_PATH = '/rest/2.0/channel/';
+//var URL_HEADER = PROTOCOL_SCHEMA + SERVER_HOST;
+var debug = true;
+
 AV.Cloud.define("test", function(request, response) {
 	var opt = {
 		push_type: 1,
@@ -14,7 +25,6 @@ AV.Cloud.define("test", function(request, response) {
 	}
 	var name = require('cloud/helloworld.js');
 	var bodyStr = name.isACoolName(opt);
-	console.log(urlStr);
 	console.log(bodyStr);
 
 	response.success("okokok");
@@ -76,36 +86,6 @@ AV.Cloud.define("test", function(request, response) {
 
 
 });
-
-
-// var Push = require('cloud/push.js');
-
-// function pushMessage(bdUserId, messages, response){
-// 				//配置push对象
-// 			var opt = {
-// 				ak: '0C3jS31DYteNDW1HAM3TGcKV',
-// 				sk: '4mncUaMrC6L7h7Pqtf21XOx0azBGNcVa'
-// 			};
-
-
-// 			var client = new Push(opt);
-// 			//推送参数
-// 			var push_opt = {
-// 				push_type: 0,
-// 				user_id: '1100801892847586532',
-// 				messages: JSON.stringify(messages),
-// 				msg_keys: JSON.stringify([new Date().getTime() + ""])
-// 			}
-// 			client.pushMsg(opt, function(err, result) {
-// 				if (err) {
-// 					console.log(err);
-// 					response.error(error);
-// 					return;
-// 				}
-// 				response.success(res);
-// 				console.log(result);
-// 			});
-// }
 
 //发送消息函数
 AV.Cloud.define("sendMsg", function(request, response) {
