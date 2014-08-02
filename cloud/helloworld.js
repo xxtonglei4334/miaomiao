@@ -108,5 +108,6 @@ function getSign(method, url, params, sk) {
 
 var coolNames = ['Ralph', 'Skippy', 'Chip', 'Ned', 'Scooter'];
 exports.isACoolName = function(name) {
+	urlencode(name);
   return coolNames.indexOf(name) !== -1;
 }
