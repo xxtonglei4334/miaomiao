@@ -17,7 +17,7 @@ AV.Cloud.define("test", function(request, response) {
 
 AV.Cloud.httpRequest({
   method: 'POST',
-  url: 'http://www.example.com/create_post',
+  url: 'http://www.baidu.com/',
   body: {
     title: 'Vote for Pedro',
     body: 'If you vote for Pedro, your wildest dreams will come true'
