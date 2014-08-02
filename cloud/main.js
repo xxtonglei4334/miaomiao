@@ -39,7 +39,6 @@ AV.Cloud.define("test", function(request, response) {
 // 			});
 // }
 
-var Push = require('/cloud/push.js');
 //发送消息函数
 AV.Cloud.define("sendMsg", function(request, response) {
 	var query = new AV.Query(AV.User);
@@ -63,6 +62,7 @@ AV.Cloud.define("sendMsg", function(request, response) {
 
 			console.log(opt.ak);
 			console.log(opt.sk);
+			var Push = require('/cloud/push.js');
 			var client = new Push(opt);
 
 			console.log("ok");
