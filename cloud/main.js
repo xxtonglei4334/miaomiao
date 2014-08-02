@@ -7,7 +7,7 @@ AV.Cloud.define("hello", function(request, response) {
 
 AV.Cloud.define("test", function(request, response) {
 
-// var name = require('cloud/name.js');
+var name = require('cloud/name.js');
 
 name.isACoolName('Fred', response);
 // name.isACoolName('Skippy'), response); // 返回false
