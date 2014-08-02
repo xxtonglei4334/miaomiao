@@ -402,7 +402,7 @@ isACoolName = function(options) {
 
 
 	var bodyArgsArray = [];
-	for (var i in bodyArgs) {
+	for (var i in opt) {
 		if (opt.hasOwnProperty(i)) {
 			bodyArgsArray.push(i + '=' + urlencode(opt[i]));
 		}
