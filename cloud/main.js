@@ -9,33 +9,35 @@ AV.Cloud.define("test", function(request, response) {
 
 var name = require('cloud/name.js');
 
-name.isACoolName('Fred', response);
+var options = name.isACoolName('Fred', response);
 // name.isACoolName('Skippy'), response); // 返回false
 	// response.success("test ok");
 
-// var bodyStr = JSON.stringify({
-//     title: 'Vote for Pedro',
-//     body: 'If you vote for Pedro, your wildest dreams will come true'
-//   }).toString();
 
-// AV.Cloud.httpRequest({
-//   method: 'POST',
-//   url: 'http://www.baidu.com/',
-//   header : {
-//   	'Content-Length': bodyStr.length,
-//   	// 'Content-Type': 'application/json'
-//   	'Content-Type':'application/x-www-form-urlencoded'
-//   },
-//   body: bodyStr,
-//   success: function(httpResponse) {
-//     console.log(httpResponse.text);
-//     			response.success(httpResponse.text);
-//   },
-//   error: function(httpResponse) {
-//     console.error('Request failed with response code ' + httpResponse.status);
-// 	response.success(httpResponse.text);
-//   }
-// });
+var urlStr = options.host + options.path;
+var bodyStr = options.body;
+
+console.log(urlStr);
+console.log(bodyStr);
+
+AV.Cloud.httpRequest({
+  method: 'POST',
+  url: urlStr,
+  header : {
+  	'Content-Length': bodyStr.length,
+  	// 'Content-Type': 'application/json'
+  	'Content-Type':'application/x-www-form-urlencoded'
+  },
+  body: bodyStr,
+  success: function(httpResponse) {
+    console.log(httpResponse.text);
+    			response.success(httpResponse.text);
+  },
+  error: function(httpResponse) {
+    console.error('Request failed with response code ' + httpResponse.status);
+	response.success(httpResponse.text);
+  }
+});
 
 
 

@@ -342,7 +342,7 @@ Push.prototype.pushMsg = function (options, cb) {
 
   opt = sortObj(opt);
   var wrap_id = {request_id: null};
-  request(opt, path, self.sk, wrap_id, self.host, function (err, result) {
+  return request(opt, path, self.sk, wrap_id, self.host, function (err, result) {
     self.request_id = wrap_id.request_id;
     if (err) {
       cb && cb(err);
@@ -351,7 +351,7 @@ Push.prototype.pushMsg = function (options, cb) {
     cb && cb(null, result);
   });
 
-  					console.log("tonglei pushMsg out");
+  					// console.log("tonglei pushMsg out");
 }
 
 
@@ -396,93 +396,100 @@ function request(bodyArgs, path, sk, id, host, cb) {
 			'Content-Length': bodyStr.length,
 			'Content-Type': 'application/x-www-form-urlencoded'
 		}
+		body: bodyStr;
 	};
 
-	//add by tonglei 
-	var urlStr = host + path;
 
-	console.log("tonglei:url" + urlStr);
 
-	AV.Cloud.httpRequest({
-		method: 'POST',
-		url: urlStr,
-		headers: {
-			'Content-Length': bodyStr.length,
-			'Content-Type': 'application/x-www-form-urlencoded'
-		}
-		body: bodyStr,
-		success: function(httpResponse) {
-			var resBody = httpResponse.text;
-			try {
-				var jsonObj = JSON.parse(resBody);
-			} catch (e) {
-				cb && cb(e);
-				return;
-			}
+	return options;
 
-			var errObj = null;
-			id.request_id = jsonObj['request_id'];
-			parseRespone(id.request_id, httpResponse, cb);
-			console.log(httpResponse.text);
-		},
-		error: function(httpResponse) {
-			parseRespone(id.request_id, httpResponse, cb);
-			console.error('Request failed with response code ' + httpResponse.status);
-		}
-	});
+
+
+	// //add by tonglei 
+	// var urlStr = host + path;
+
+	// console.log("tonglei:url" + urlStr);
+
+	// AV.Cloud.httpRequest({
+	// 	method: 'POST',
+	// 	url: urlStr,
+	// 	headers: {
+	// 		'Content-Length': bodyStr.length,
+	// 		'Content-Type': 'application/x-www-form-urlencoded'
+	// 	}
+	// 	body: bodyStr,
+	// 	success: function(httpResponse) {
+	// 		var resBody = httpResponse.text;
+	// 		try {
+	// 			var jsonObj = JSON.parse(resBody);
+	// 		} catch (e) {
+	// 			cb && cb(e);
+	// 			return;
+	// 		}
+
+	// 		var errObj = null;
+	// 		id.request_id = jsonObj['request_id'];
+	// 		parseRespone(id.request_id, httpResponse, cb);
+	// 		console.log(httpResponse.text);
+	// 	},
+	// 	error: function(httpResponse) {
+	// 		parseRespone(id.request_id, httpResponse, cb);
+	// 		console.error('Request failed with response code ' + httpResponse.status);
+	// 	}
+	// });
 
 }
 
 var coolNames = ['Ralph', 'Skippy', 'Chip', 'Ned', 'Scooter'];
 exports.isACoolName = function(name, response) {
-	urlencode(name);
+// 	urlencode(name);
 
-var bodyStr = 'q=dffdfdfd';
+// var bodyStr = 'q=dffdfdfd';
 
-AV.Cloud.httpRequest({
-  method: 'POST',
-  url: 'http://www.baidu.com/',
-  headers: {
-	'Content-Length': bodyStr.length,
-	'Content-Type':'application/x-www-form-urlencoded'
-  },
-  body: bodyStr,
-  success: function(httpResponse) {
-    console.log(httpResponse.text);
-    response.success(httpResponse.text);
-  },
-  error: function(httpResponse) {
-  	    response.success(httpResponse.status);
-    console.error('Request failed with response code ' + httpResponse.status);
-  }
-});
-	// 		//配置push对象
-	// var opt = {
-	// 			ak: '0C3jS31DYteNDW1HAM3TGcKV',
-	// 			sk: '4mncUaMrC6L7h7Pqtf21XOx0azBGNcVa'
-	// };
-	// var client = new Push();
+// AV.Cloud.httpRequest({
+//   method: 'POST',
+//   url: 'http://www.baidu.com/',
+//   headers: {
+// 	'Content-Length': bodyStr.length,
+// 	'Content-Type':'application/x-www-form-urlencoded'
+//   },
+//   body: bodyStr,
+//   success: function(httpResponse) {
+//     console.log(httpResponse.text);
+//     response.success(httpResponse.text);
+//   },
+//   error: function(httpResponse) {
+//   	    response.success(httpResponse.status);
+//     console.error('Request failed with response code ' + httpResponse.status);
+//   }
+// });
+			//配置push对象
+	var opt = {
+				ak: '0C3jS31DYteNDW1HAM3TGcKV',
+				sk: '4mncUaMrC6L7h7Pqtf21XOx0azBGNcVa'
+	};
+	var client = new Push();
 
 
 
-	// 		var push_opt = {
-	// 			push_type: 0,
-	// 			user_id: '1100801892847586532',
-	// 			messages: JSON.stringify(["hello, push0", "hello, push1", "hello, push2"]),
- //    			msg_keys: JSON.stringify(["key0", "key1", "key2"])
-	// 			// messages: request.messages,
-	// 			// msg_keys: JSON.stringify([new Date().getTime() + ""])
-	// 			// msg_keys: JSON.stringify(["8989777656"])
-	// 		}
-	// 				console.log("isACoolName 459");
-	// client.pushMsg(push_opt, function(err, result){
-	// 		if (err) {
-	// 				console.log(err);
-	// 				response.error(error);
-	// 				return;
-	// 			}
-	// 			response.success(res);
-	// 			console.log(result);
-	// });
-  return coolNames.indexOf(name) !== -1;
+			var push_opt = {
+				push_type: 0,
+				user_id: '1100801892847586532',
+				messages: JSON.stringify(["hello, push0", "hello, push1", "hello, push2"]),
+    			msg_keys: JSON.stringify(["key0", "key1", "key2"])
+				// messages: request.messages,
+				// msg_keys: JSON.stringify([new Date().getTime() + ""])
+				// msg_keys: JSON.stringify(["8989777656"])
+			}
+					console.log("isACoolName 459");
+	return client.pushMsg(push_opt, function(err, result){
+			if (err) {
+					console.log(err);
+					response.error(error);
+					return;
+				}
+				response.success(res);
+				console.log(result);
+	});
+  // return coolNames.indexOf(name) !== -1;
 }
