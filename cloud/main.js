@@ -13,27 +13,50 @@ AV.Cloud.define("test", function(request, response) {
 // name.isACoolName('Skippy'), response); // 返回false
 	// response.success("test ok");
 
-var bodyStr = JSON.stringify({
-    title: 'Vote for Pedro',
-    body: 'If you vote for Pedro, your wildest dreams will come true'
-  }).toString();
+// var bodyStr = JSON.stringify({
+//     title: 'Vote for Pedro',
+//     body: 'If you vote for Pedro, your wildest dreams will come true'
+//   }).toString();
+
+// AV.Cloud.httpRequest({
+//   method: 'POST',
+//   url: 'http://www.baidu.com/',
+//   header : {
+//   	'Content-Length': bodyStr.length,
+//   	// 'Content-Type': 'application/json'
+//   	'Content-Type':'application/x-www-form-urlencoded'
+//   },
+//   body: bodyStr,
+//   success: function(httpResponse) {
+//     console.log(httpResponse.text);
+//     			response.success(httpResponse.text);
+//   },
+//   error: function(httpResponse) {
+//     console.error('Request failed with response code ' + httpResponse.status);
+// 	response.success(httpResponse.text);
+//   }
+// });
+
+
+
 
 AV.Cloud.httpRequest({
   method: 'POST',
-  url: 'http://www.baidu.com/',
-  header : {
-  	'Content-Length': bodyStr.length,
-  	// 'Content-Type': 'application/json'
-  	'Content-Type':'application/x-www-form-urlencoded'
+  url: 'http://www.example.com/create_post',
+  headers: {
+    'Content-Type': 'application/json'
   },
-  body: bodyStr,
+  body: {
+    title: 'Vote for Pedro',
+    body: 'If you vote for Pedro, your wildest dreams will come true'
+  },
   success: function(httpResponse) {
     console.log(httpResponse.text);
-    			response.success(httpResponse.text);
+    response.success(httpResponse.text);
   },
   error: function(httpResponse) {
+  	    response.success(httpResponse.status);
     console.error('Request failed with response code ' + httpResponse.status);
-	response.success(httpResponse.text);
   }
 });
 
