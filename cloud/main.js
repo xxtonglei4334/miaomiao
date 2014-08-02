@@ -27,26 +27,25 @@ AV.Cloud.define("test", function(request, response) {
 	var bodyStr = isACoolName(opt);
 	console.log(bodyStr);
 
-	response.success("okokok");
+	// response.success("okokok");
 
-	// AV.Cloud.httpRequest({
-	//   method: 'POST',
-	//   url: urlStr,
-	//   header : {
-	//   	'Content-Length': bodyStr.length,
-	//   	// 'Content-Type': 'application/json'
-	//   	'Content-Type':'application/x-www-form-urlencoded'
-	//   },
-	//   body: bodyStr,
-	//   success: function(httpResponse) {
-	//     console.log(httpResponse.text);
-	//     			response.success(httpResponse.text);
-	//   },
-	//   error: function(httpResponse) {
-	//     console.error('Request failed with response code ' + httpResponse.status);
-	// 	response.success(httpResponse.text);
-	//   }
-	// });
+	AV.Cloud.httpRequest({
+	  method: 'POST',
+	  url: SERVER_HOST + COMMON_PATH,
+	  header : {
+	  	'Content-Length': bodyStr.length,
+	  	'Content-Type':'application/x-www-form-urlencoded'
+	  },
+	  body: bodyStr,
+	  success: function(httpResponse) {
+	    console.log(httpResponse.text);
+	    			response.success(httpResponse.text);
+	  },
+	  error: function(httpResponse) {
+	    console.error('Request failed with response code ' + httpResponse.status);
+		response.success(httpResponse.text);
+	  }
+	});
 
 
 
