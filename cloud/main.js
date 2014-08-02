@@ -43,13 +43,10 @@ AV.Cloud.define("test", function(request, response) {
 AV.Cloud.httpRequest({
   method: 'POST',
   url: 'http://www.baidu.com/',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: {
-    title: 'Vote for Pedro',
-    body: 'If you vote for Pedro, your wildest dreams will come true'
-  },
+  // headers: {
+  //   'Content-Type': 'application/json'
+  // },
+  body: 'dffdfdfd',
   success: function(httpResponse) {
     console.log(httpResponse.text);
     response.success(httpResponse.text);
