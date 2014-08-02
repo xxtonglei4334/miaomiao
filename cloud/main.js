@@ -16,7 +16,7 @@ AV.Cloud.define("test", function(request, response) {
 var bodyStr = JSON.stringify({
     title: 'Vote for Pedro',
     body: 'If you vote for Pedro, your wildest dreams will come true'
-  });
+  }).toString();
 
 AV.Cloud.httpRequest({
   method: 'POST',
