@@ -11,7 +11,7 @@ AV.Cloud.define("test", function(request, response) {
 
   var opt = {
     push_type: 1,
-    user_id: id0,
+    user_id: '1100801892847586532',
     messages: JSON.stringify(["hello, push0", "hello, push1", "hello, push2"]),
     msg_keys: JSON.stringify(["key0", "key1", "key2"])
   }
