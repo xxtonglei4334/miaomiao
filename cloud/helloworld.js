@@ -1,6 +1,3 @@
-
-
-
 var util = require('util');
 // var assert = require('assert');
 var crypto = require('crypto');
@@ -17,18 +14,18 @@ var debug = true;
  * error message
  */
 var errMsg = {
-  INVALID_ARGS: 'Arguments error',
-  INVALID_USER_ID: 'Arguments error: invalid user_id, the length of user_id must be less than 257B',
-  INVALID_START: 'Arguments error: invalid start, start must be equal or greater than 0 ',
-  INVALID_LIMIT: 'Arguments error: invalid limit, limit must be greater than 0 ',
-  INVALID_CHANNEL_ID: 'Arguments error: invalid channel_id, type of value must be String',
-  INVALID_MESSAGES: 'Arguments error: invalid messages type of messages must be String',
-  INVALID_TAG: 'Arguments error: invalid tag, the length of tag must be less than 129B',
-  INVALID_PUSH_TYPE: 'Arguments error: invalid push_type, type of push_type is 1, 2 or 3',
-  INVALID_DEVICE_TYPE: 'Arguments error: invalid device_type, type of device_type is 1, 2, 3, 4 or 5',
-  INVALID_MESSAGE_TYPE: 'Arguments error: invalid message_type, type of message_type is 0 or 1',
-  INVALID_MSG_KEYS: 'Arguments error: invalid msg_keys, type of messages must be String',
-  INVALID_MESSAGE_EXPIRES: 'Arguments error: invalid message_expires, message_expires must be equal or greater than 0 ',
+	INVALID_ARGS: 'Arguments error',
+	INVALID_USER_ID: 'Arguments error: invalid user_id, the length of user_id must be less than 257B',
+	INVALID_START: 'Arguments error: invalid start, start must be equal or greater than 0 ',
+	INVALID_LIMIT: 'Arguments error: invalid limit, limit must be greater than 0 ',
+	INVALID_CHANNEL_ID: 'Arguments error: invalid channel_id, type of value must be String',
+	INVALID_MESSAGES: 'Arguments error: invalid messages type of messages must be String',
+	INVALID_TAG: 'Arguments error: invalid tag, the length of tag must be less than 129B',
+	INVALID_PUSH_TYPE: 'Arguments error: invalid push_type, type of push_type is 1, 2 or 3',
+	INVALID_DEVICE_TYPE: 'Arguments error: invalid device_type, type of device_type is 1, 2, 3, 4 or 5',
+	INVALID_MESSAGE_TYPE: 'Arguments error: invalid message_type, type of message_type is 0 or 1',
+	INVALID_MSG_KEYS: 'Arguments error: invalid msg_keys, type of messages must be String',
+	INVALID_MESSAGE_EXPIRES: 'Arguments error: invalid message_expires, message_expires must be equal or greater than 0 ',
 };
 
 
@@ -38,42 +35,45 @@ var errMsg = {
  * @returns {String} encoded url
  * @desc php urlencode is different from js, the way of Push server encode is same with php, so js need do some change
  */
-function urlencode (str) {
-  // http://kevin.vanzonneveld.net
-  str = (str + '').toString();
 
-  // Tilde should be allowed unescaped in future versions of PHP (as reflected below), but if you want to reflect current
-  // PHP behavior, you would need to add ".replace(/~/g, '%7E');" to the following.
-  return encodeURIComponent(str).replace(/!/g, '%21').replace(/'/g, '%27').replace(/\(/g, '%28').
-  replace(/\)/g, '%29').replace(/\*/g, '%2A').replace(/%20/g, '+');
+function urlencode(str) {
+	// http://kevin.vanzonneveld.net
+	str = (str + '').toString();
+
+	// Tilde should be allowed unescaped in future versions of PHP (as reflected below), but if you want to reflect current
+	// PHP behavior, you would need to add ".replace(/~/g, '%7E');" to the following.
+	return encodeURIComponent(str).replace(/!/g, '%21').replace(/'/g, '%27').replace(/\(/g, '%28').
+	replace(/\)/g, '%29').replace(/\*/g, '%2A').replace(/%20/g, '+');
 }
 
 /*
  * Get current time
  * @returns {Number} The current time in seconds since the Epoch
  */
+
 function getTimestamp() {
-    var timestamp = Math.floor(new Date().getTime() / 1000);
-    return timestamp;
+	var timestamp = Math.floor(new Date().getTime() / 1000);
+	return timestamp;
 }
 
 /*
  * Sort Obj with abc
  */
-function sortObj(obj) {
-  var index = [];
-  var tmpObj = {};
-  for (var i in obj) {
-    if (obj.hasOwnProperty(i)) {
-      index.push(i);
-    }
-  }
-  index.sort();
 
-  for(i = 0; i < index.length; i++){
-    tmpObj[index[i]] = obj[index[i]];
-  }
-  return tmpObj;
+function sortObj(obj) {
+	var index = [];
+	var tmpObj = {};
+	for (var i in obj) {
+		if (obj.hasOwnProperty(i)) {
+			index.push(i);
+		}
+	}
+	index.sort();
+
+	for (i = 0; i < index.length; i++) {
+		tmpObj[index[i]] = obj[index[i]];
+	}
+	return tmpObj;
 }
 
 /*
@@ -85,25 +85,26 @@ function sortObj(obj) {
  * @param {String} sk User's secret key in bae
  * @returns {String} sign
  */
+
 function getSign(method, url, params, sk) {
-    var baseStr = method + url;
+	var baseStr = method + url;
 
-    for (var i in params) {
-        baseStr += i + '=' + params[i];
-    }
+	for (var i in params) {
+		baseStr += i + '=' + params[i];
+	}
 
-    baseStr += sk;
-    //var encodeStr = encodeURIComponent(baseStr);
-    var encodeStr = urlencode(baseStr);
-    if (debug) {
-        console.log('getSign: base str = ' + baseStr + ', encode str = ' + encodeStr);
-    }
+	baseStr += sk;
+	//var encodeStr = encodeURIComponent(baseStr);
+	var encodeStr = urlencode(baseStr);
+	if (debug) {
+		console.log('getSign: base str = ' + baseStr + ', encode str = ' + encodeStr);
+	}
 
-    var md5sum = crypto.createHash('md5');
-    md5sum.update(encodeStr);
+	var md5sum = crypto.createHash('md5');
+	md5sum.update(encodeStr);
 
-    var sign = md5sum.digest('hex');
-    return sign;
+	var sign = md5sum.digest('hex');
+	return sign;
 }
 
 /*
@@ -111,87 +112,89 @@ function getSign(method, url, params, sk) {
  * @param {Object} options
  * @param {Array} must Properties are must in options
  */
-function checkOptions(options, must){
 
-  must.forEach(function (ele) {
-    if (!options.hasOwnProperty(ele)) {
-      var err = errMsg.INVALID_ARGS + ': ' + ele + ' is must';
-      throw new Error(err);
-    }
-  });
+function checkOptions(options, must) {
 
-  function checkType(type, condition) {
+	must.forEach(function(ele) {
+		if (!options.hasOwnProperty(ele)) {
+			var err = errMsg.INVALID_ARGS + ': ' + ele + ' is must';
+			throw new Error(err);
+		}
+	});
 
-  	for (var i = 0; i < condition.length; i++) {
-  	  if (type === condition[i]) {
-  	  	return true
-  	  }
-  	}
-  	return false;
-  }
+	function checkType(type, condition) {
 
-  if (options['user_id'] && !(typeof options['user_id'] === 'string' && options['user_id'].length <= 256)) {
-    throw new Error(errMsg.INVALID_USER_ID);
-  }
-  if (options['start'] && !(typeof options['start'] === 'number' && options['start'] >= 0)) {
-    throw new Error(errMsg.INVALID_START);
-  }
-  if (options['limit'] && !(typeof options['limit'] === 'number' && options['limit'] > 0)) {
-    throw new Error(errMsg.INVALID_LIMIT);
-  }
-  if (options['channel_id'] && !(typeof options['channel_id'] === 'string')) {
-    throw new Error(errMsg.INVALID_CHANNEL_ID);
-  }
-  if (options['push_type'] && !(typeof options['push_type'] === 'number' && checkType(options['push_type'], [1, 2, 3]))) {
-    throw new Error(errMsg.INVALID_PUSH_TYPE);
-  }
-  if (options['device_type'] && !(typeof options['device_type'] === 'number' && checkType(options['device_type'], [1, 2, 3, 4, 5]))) {
-    throw new Error(errMsg.INVALID_DEVICE_TYPE);
-  }
-  if (options['message_type'] && !(typeof options['message_type'] === 'number' && checkType(options['message_type'], [0, 1]))) {
-    throw new Error(errMsg.INVALID_MESSAGE_TYPE);
-  }
-  if (options['tag'] && !(typeof options['tag'] === 'string' && options['tag'].length <= 128)) {
-    throw new Error(errMsg.INVALID_TAG);
-  }
-  if (options['messages'] && !(typeof options['messages'] === 'string')) {
-    throw new Error(errMsg.INVALID_MESSAGES);
-  }
-  if (options['msg_keys'] && !(typeof options['msg_keys'] === 'string')) {
-    throw new Error(errMsg.INVALID_MSG_KEYS);
-  }
-  if (options['message_expires'] && !(typeof options['message_expires'] === 'string')) {
-    throw new Error(errMsg.INVALID_MESSAGE_EXPIRES);
-  }
+		for (var i = 0; i < condition.length; i++) {
+			if (type === condition[i]) {
+				return true
+			}
+		}
+		return false;
+	}
+
+	if (options['user_id'] && !(typeof options['user_id'] === 'string' && options['user_id'].length <= 256)) {
+		throw new Error(errMsg.INVALID_USER_ID);
+	}
+	if (options['start'] && !(typeof options['start'] === 'number' && options['start'] >= 0)) {
+		throw new Error(errMsg.INVALID_START);
+	}
+	if (options['limit'] && !(typeof options['limit'] === 'number' && options['limit'] > 0)) {
+		throw new Error(errMsg.INVALID_LIMIT);
+	}
+	if (options['channel_id'] && !(typeof options['channel_id'] === 'string')) {
+		throw new Error(errMsg.INVALID_CHANNEL_ID);
+	}
+	if (options['push_type'] && !(typeof options['push_type'] === 'number' && checkType(options['push_type'], [1, 2, 3]))) {
+		throw new Error(errMsg.INVALID_PUSH_TYPE);
+	}
+	if (options['device_type'] && !(typeof options['device_type'] === 'number' && checkType(options['device_type'], [1, 2, 3, 4, 5]))) {
+		throw new Error(errMsg.INVALID_DEVICE_TYPE);
+	}
+	if (options['message_type'] && !(typeof options['message_type'] === 'number' && checkType(options['message_type'], [0, 1]))) {
+		throw new Error(errMsg.INVALID_MESSAGE_TYPE);
+	}
+	if (options['tag'] && !(typeof options['tag'] === 'string' && options['tag'].length <= 128)) {
+		throw new Error(errMsg.INVALID_TAG);
+	}
+	if (options['messages'] && !(typeof options['messages'] === 'string')) {
+		throw new Error(errMsg.INVALID_MESSAGES);
+	}
+	if (options['msg_keys'] && !(typeof options['msg_keys'] === 'string')) {
+		throw new Error(errMsg.INVALID_MSG_KEYS);
+	}
+	if (options['message_expires'] && !(typeof options['message_expires'] === 'string')) {
+		throw new Error(errMsg.INVALID_MESSAGE_EXPIRES);
+	}
 }
 
 /****
-* added by tonglei
-* httpResponese 
-* callback function(err, result)
-*/
-function parseRespone(requestId, httpResponese, cb){
-  if(httpResponse.status != 200){
-                      var error_code = 'Unknown';
-                if (jsonObj['error_code'] !== undefined) {
-                    error_code = jsonObj['error_code'];
-                }
+ * added by tonglei
+ * httpResponese
+ * callback function(err, result)
+ */
 
-                var error_msg = 'Unknown';
-                if (jsonObj['error_msg'] !== undefined) {
-                    error_msg = jsonObj['error_msg'];
-                }
+function parseRespone(requestId, httpResponese, cb) {
+	if (httpResponse.status != 200) {
+		var error_code = 'Unknown';
+		if (jsonObj['error_code'] !== undefined) {
+			error_code = jsonObj['error_code'];
+		}
 
-                var request_id = 'Unknown';
-                if (jsonObj['error_msg'] !== undefined) {
-                    request_id = jsonObj['request_id'];
-                }
+		var error_msg = 'Unknown';
+		if (jsonObj['error_msg'] !== undefined) {
+			error_msg = jsonObj['error_msg'];
+		}
 
-                errObj = new Error('Push error code: ' + error_code +
-                                    ', error msg: ' + error_msg +
-                                    ', request id: ' + request_id);
-    }
-    cb(errObj, jsonObj);
+		var request_id = 'Unknown';
+		if (jsonObj['error_msg'] !== undefined) {
+			request_id = jsonObj['request_id'];
+		}
+
+		errObj = new Error('Push error code: ' + error_code +
+			', error msg: ' + error_msg +
+			', request id: ' + request_id);
+	}
+	cb(errObj, jsonObj);
 }
 
 
@@ -204,37 +207,37 @@ function parseRespone(requestId, httpResponese, cb){
  * @param {String} [options.sk] User secret key
  * @param {String} [options.host] TaskQueue server host
  */
-function Push(options){
 
-  console.log("tonglei create push instance");
+function Push(options) {
 
-  var self = this;
-  var opt = {
-    ak: process.env.BAE_ENV_AK,
-    sk: process.env.BAE_ENV_SK,
-    host: process.env.BAE_ENV_ADDR_CHANNEL || SERVER_HOST
-  }
+	console.log("tonglei create push instance");
 
-  if (options) {
-    for (var i in options) {
-      if (options.hasOwnProperty(i)) {
-        if (typeof options[i] === 'string') {
-          opt[i] = options[i];
-        } else {
-          throw new Error('Invalid ak, sk, or counter host')
-        }
-      }
-    }
-  }
+	var self = this;
+	var opt = {
+		ak: process.env.BAE_ENV_AK,
+		sk: process.env.BAE_ENV_SK,
+		host: process.env.BAE_ENV_ADDR_CHANNEL || SERVER_HOST
+	}
 
-  self.ak = opt.ak;
-  self.sk = opt.sk;
-  self.host = opt.host;
-  self.request_id = null;
+	if (options) {
+		for (var i in options) {
+			if (options.hasOwnProperty(i)) {
+				if (typeof options[i] === 'string') {
+					opt[i] = options[i];
+				} else {
+					throw new Error('Invalid ak, sk, or counter host')
+				}
+			}
+		}
+	}
 
-  console.log("tonglei create push instance end");
+	self.ak = opt.ak;
+	self.sk = opt.sk;
+	self.host = opt.host;
+	self.request_id = null;
+
+	console.log("tonglei create push instance end");
 }
-
 
 
 
@@ -247,44 +250,45 @@ function Push(options){
  * @param {Number} [options.limit] Numbers of lists, default value is 10
  * @param {function} cb(err, result)
  */
-Push.prototype.queryBindList = function (options, cb) {
-  var self = this;
-  var opt = {};
-  if (typeof options === 'function' && arguments.length === 1) {
-    cb = options;
-    options = {}
-  }
+Push.prototype.queryBindList = function(options, cb) {
+	var self = this;
+	var opt = {};
+	if (typeof options === 'function' && arguments.length === 1) {
+		cb = options;
+		options = {}
+	}
 
-  if (!options) {
-  	options = {}
-  }
+	if (!options) {
+		options = {}
+	}
 
-  for (var i in options) {
-    if (options.hasOwnProperty(i)) {
-      opt[i] = options[i];
-    }
-  }
+	for (var i in options) {
+		if (options.hasOwnProperty(i)) {
+			opt[i] = options[i];
+		}
+	}
 
-  checkOptions(opt, ['user_id']);
+	checkOptions(opt, ['user_id']);
 
-  var path = COMMON_PATH + (options['channel_id'] || 'channel');
+	var path = COMMON_PATH + (options['channel_id'] || 'channel');
 
-  opt['method'] = 'query_bindlist';
-  opt['apikey'] = self.ak;
-  opt['timestamp'] = getTimestamp();
+	opt['method'] = 'query_bindlist';
+	opt['apikey'] = self.ak;
+	opt['timestamp'] = getTimestamp();
 
-  opt = sortObj(opt);
-  var wrap_id = {request_id: null};
-  request(opt, path, self.sk, wrap_id, self.host, function (err, result) {
-    self.request_id = wrap_id.request_id;
-    if (err) {
-      cb && cb(err);
-      return;
-    }
-    cb && cb(null, result);
-  });
+	opt = sortObj(opt);
+	var wrap_id = {
+		request_id: null
+	};
+	request(opt, path, self.sk, wrap_id, self.host, function(err, result) {
+		self.request_id = wrap_id.request_id;
+		if (err) {
+			cb && cb(err);
+			return;
+		}
+		cb && cb(null, result);
+	});
 }
-
 
 
 
@@ -302,54 +306,56 @@ Push.prototype.queryBindList = function (options, cb) {
  * @param {Number} [options.message_expires]
  * @param {function} cb(err, result)
  */
-Push.prototype.pushMsg = function (options, cb) {
-  var self = this;
-  var opt = {};
-  if (typeof options === 'function' && arguments.length === 1) {
-    cb = options;
-    options = {}
-  }
+Push.prototype.pushMsg = function(options, cb) {
+	var self = this;
+	var opt = {};
+	if (typeof options === 'function' && arguments.length === 1) {
+		cb = options;
+		options = {}
+	}
 
-  if (!options) {
-  	options = {}
-  }
+	if (!options) {
+		options = {}
+	}
 
-  for (var i in options) {
-  	if (options.hasOwnProperty(i)) {
-  		opt[i] = options[i];
-  	}
-  }
+	for (var i in options) {
+		if (options.hasOwnProperty(i)) {
+			opt[i] = options[i];
+		}
+	}
 
-  var must = ['push_type', 'messages', 'msg_keys'];
+	var must = ['push_type', 'messages', 'msg_keys'];
 
-  if (opt['push_type'] === 1) {
-  	must.push('user_id');
-  } else if (opt['push_type'] === 2) {
-  	must.push('tag');
-  } else {
+	if (opt['push_type'] === 1) {
+		must.push('user_id');
+	} else if (opt['push_type'] === 2) {
+		must.push('tag');
+	} else {
 
-  }
+	}
 
-  checkOptions(opt, must);
+	checkOptions(opt, must);
 
-  var path = COMMON_PATH + 'channel';
+	var path = COMMON_PATH + 'channel';
 
-  opt['method'] = 'push_msg';
-  opt['apikey'] = self.ak;
-  opt['timestamp'] = getTimestamp();
+	opt['method'] = 'push_msg';
+	opt['apikey'] = self.ak;
+	opt['timestamp'] = getTimestamp();
 
-  opt = sortObj(opt);
-  var wrap_id = {request_id: null};
-  return request(opt, path, self.sk, wrap_id, self.host, function (err, result) {
-    self.request_id = wrap_id.request_id;
-    if (err) {
-      cb && cb(err);
-      return;
-    }
-    cb && cb(null, result);
-  });
+	opt = sortObj(opt);
+	var wrap_id = {
+		request_id: null
+	};
+	return request(opt, path, self.sk, wrap_id, self.host, function(err, result) {
+		self.request_id = wrap_id.request_id;
+		if (err) {
+			cb && cb(err);
+			return;
+		}
+		cb && cb(null, result);
+	});
 
-  					// console.log("tonglei pushMsg out");
+	// console.log("tonglei pushMsg out");
 }
 
 
@@ -441,45 +447,52 @@ function request(bodyArgs, path, sk, id, host) {
 var ak = '0C3jS31DYteNDW1HAM3TGcKV';
 var sk = '4mncUaMrC6L7h7Pqtf21XOx0azBGNcVa';
 
-var coolNames = ['Ralph', 'Skippy', 'Chip', 'Ned', 'Scooter'];
+/*
+ * Push message
+ * @param {Object} options
+ * @param {Number} options.push_type Push type
+ * @param {String} options.messages Message list
+ * @param {String} options.msg_keys
+ * @param {String} [options.user_id]
+ * @param {String} [options.tag]
+ * @param {Number} [options.channel_id]
+ * @param {Number} [options.device_type] Device type
+ * @param {Number} [options.message_type]
+ * @param {Number} [options.message_expires]
+ * @param {function} cb(err, result)
+ */
 exports.isACoolName = function(options) {
-  var opt = {};
-  for (var i in options) {
-  	if (options.hasOwnProperty(i)) {
-  		opt[i] = options[i];
-  	}
-  }
+	var opt = {};
+	for (var i in options) {
+		if (options.hasOwnProperty(i)) {
+			opt[i] = options[i];
+		}
+	}
 
-  var must = ['push_type', 'messages', 'msg_keys'];
+	var must = ['push_type', 'messages', 'msg_keys'];
 
-  if (opt['push_type'] === 1) {
-  	must.push('user_id');
-  } else if (opt['push_type'] === 2) {
-  	must.push('tag');
-  } else {
+	if (opt['push_type'] === 1) {
+		must.push('user_id');
+	} else if (opt['push_type'] === 2) {
+		must.push('tag');
+	} else {
 
-  }
+	}
 
-  checkOptions(opt, must);
+	checkOptions(opt, must);
 
-  var path = COMMON_PATH + 'channel';
+	var path = COMMON_PATH + 'channel';
 
-  opt['method'] = 'push_msg';
-  opt['apikey'] = self.ak;
-  opt['timestamp'] = getTimestamp();
+	opt['method'] = 'push_msg';
+	opt['apikey'] = self.ak;
+	opt['timestamp'] = getTimestamp();
 
-  opt = sortObj(opt);
-  var wrap_id = {request_id: null};
+	opt = sortObj(opt);
+	var wrap_id = {
+		request_id: null
+	};
 
-//  var result =  request(opt, path, sk, wrap_id, SERVER_HOST);
-
-
-// function request(bodyArgs, path, sk, id, host) {
-
-// http
-  var sendOption = {};
-
-
+	// http
 	opt.sign = getSign('POST', PROTOCOL_SCHEMA + host + path, opt, sk);
 
 
@@ -498,25 +511,5 @@ exports.isACoolName = function(options) {
 		console.log('body length = ' + bodyStr.length + ', body str = ' + bodyStr);
 	}
 
-
 	return bodyStr;
-
-
-	// var result = {};
-
-	// var options = {
-	// 	host: host,
-	// 	method: 'POST',
-	// 	path: path,
-	// 	headers: {
-	// 		'Content-Length': bodyStr.length,
-	// 		'Content-Type': 'application/x-www-form-urlencoded'
-	// 	}
-	// 	body: bodyStr;
-	// };
-
-
-
-
-  // return result;
 }
