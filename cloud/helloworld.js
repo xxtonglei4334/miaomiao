@@ -350,6 +350,86 @@ Push.prototype.pushMsg = function (options, cb) {
   });
 }
 
+
+
+/*
+ * Common Push request
+ * @param {Object} bodyArgs
+ * @param {String} path Url path
+ * @param {String} sk User's secret key in bae
+ * @param {function} cb cb(err, result)
+ */
+
+function request(bodyArgs, path, sk, id, host, cb) {
+
+	// assert.ok(bodyArgs.method);
+	// assert.ok(path);
+	// assert.ok(sk);
+
+	bodyArgs.sign = getSign('POST', PROTOCOL_SCHEMA + host + path, bodyArgs, sk);
+
+
+	var bodyArgsArray = [];
+	for (var i in bodyArgs) {
+		if (bodyArgs.hasOwnProperty(i)) {
+			bodyArgsArray.push(i + '=' + urlencode(bodyArgs[i]));
+		}
+	}
+	var bodyStr = bodyArgsArray.join('&');
+
+
+	//var bodyStr = querystring.stringify(bodyArgs);
+
+	if (debug) {
+		console.log('body length = ' + bodyStr.length + ', body str = ' + bodyStr);
+	}
+
+	var options = {
+		host: host,
+		method: 'POST',
+		path: path,
+		headers: {
+			'Content-Length': bodyStr.length,
+			'Content-Type': 'application/x-www-form-urlencoded'
+		}
+	};
+
+	//add by tonglei 
+	var urlStr = host + path;
+
+	console.log("tonglei:url" + urlStr);
+
+	AV.Cloud.httpRequest({
+		method: 'POST',
+		url: urlStr,
+		headers: {
+			'Content-Length': bodyStr.length,
+			'Content-Type': 'application/x-www-form-urlencoded'
+		}
+		body: bodyStr,
+		success: function(httpResponse) {
+			var resBody = httpResponse.text;
+			try {
+				var jsonObj = JSON.parse(resBody);
+			} catch (e) {
+				cb && cb(e);
+				return;
+			}
+
+			var errObj = null;
+			id.request_id = jsonObj['request_id'];
+			parseRespone(id.request_id, httpResponse, cb);
+			console.log(httpResponse.text);
+		},
+		error: function(httpResponse) {
+			parseRespone(id.request_id, httpResponse, cb);
+			console.error('Request failed with response code ' + httpResponse.status);
+		}
+	});
+
+}
+
+
 var coolNames = ['Ralph', 'Skippy', 'Chip', 'Ned', 'Scooter'];
 exports.isACoolName = function(name) {
 	urlencode(name);
@@ -360,5 +440,6 @@ exports.isACoolName = function(name) {
 				sk: '4mncUaMrC6L7h7Pqtf21XOx0azBGNcVa'
 	};
 	var client = new Push();
+	// client.pushMsg();
   return coolNames.indexOf(name) !== -1;
 }
