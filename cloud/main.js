@@ -14,39 +14,58 @@ AV.Cloud.define("test", function(request, response) {
 	// response.success("test ok");
 
 
-	var bodyStr = "q=fdfdf";
 
-	AV.Cloud.httpRequest({
-		method: 'POST',
-		url: "www.baidu.com",
-		headers: {
-			'Content-Length': bodyStr.length,
-			'Content-Type': 'application/x-www-form-urlencoded'
-		}
-		body: bodyStr,
-		success: function(httpResponse) {
-			var resBody = httpResponse.text;
-			// try {
-			// 	var jsonObj = JSON.parse(resBody);
-			// } catch (e) {
-			// 	cb && cb(e);
-			// 	return;
-			// }
+AV.Cloud.httpRequest({
+  method: 'POST',
+  url: 'http://www.example.com/create_post',
+  body: {
+    title: 'Vote for Pedro',
+    body: 'If you vote for Pedro, your wildest dreams will come true'
+  },
+  success: function(httpResponse) {
+    console.log(httpResponse.text);
+    			response.success(httpResponse.text);
+  },
+  error: function(httpResponse) {
+    console.error('Request failed with response code ' + httpResponse.status);
+	response.error(httpResponse.status + "error");
+  }
+});
 
 
-			response.success(httpResponse.text);
+	// var bodyStr = "q=fdfdf";
 
-			// var errObj = null;
-			// id.request_id = jsonObj['request_id'];
-			// parseRespone(id.request_id, httpResponse, cb);
-			// console.log(httpResponse.text);
-		},
-		error: function(httpResponse) {
-			response.error(httpResponse.status + "error");
-			// parseRespone(id.request_id, httpResponse, cb);
-			// console.error('Request failed with response code ' + httpResponse.status);
-		}
-	});
+	// AV.Cloud.httpRequest({
+	// 	method: 'POST',
+	// 	url: "www.baidu.com",
+	// 	headers: {
+	// 		'Content-Length': bodyStr.length,
+	// 		'Content-Type': 'application/x-www-form-urlencoded'
+	// 	}
+	// 	body: bodyStr,
+	// 	success: function(httpResponse) {
+	// 		var resBody = httpResponse.text;
+	// 		// try {
+	// 		// 	var jsonObj = JSON.parse(resBody);
+	// 		// } catch (e) {
+	// 		// 	cb && cb(e);
+	// 		// 	return;
+	// 		// }
+
+
+	// 		response.success(httpResponse.text);
+
+	// 		// var errObj = null;
+	// 		// id.request_id = jsonObj['request_id'];
+	// 		// parseRespone(id.request_id, httpResponse, cb);
+	// 		// console.log(httpResponse.text);
+	// 	},
+	// 	error: function(httpResponse) {
+	// 		response.error(httpResponse.status + "error");
+	// 		// parseRespone(id.request_id, httpResponse, cb);
+	// 		// console.error('Request failed with response code ' + httpResponse.status);
+	// 	}
+	// });
 
 
 });
