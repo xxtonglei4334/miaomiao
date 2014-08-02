@@ -37,7 +37,16 @@ AV.Cloud.define("test", function(request, response) {
 	  	'Content-Type':'application/x-www-form-urlencoded'
 	  	// 'Content-Type': 'application/json'
 	  },
-	  body: bodyStr,
+	  body:  {
+  apikey: '0C3jS31DYteNDW1HAM3TGcKV',
+  messages: '%5B%22hello%2C+push0%22%2C%22hello%2C+push1%22%2C%22hello%2C+push2%22%5D',
+  method: 'push_msg',
+  msg_keys: '%5B%22key0%22%2C%22key1%22%2C%22key2%22%5D',
+  push_type: 1,
+  timestamp: 1406974719,
+  user_id: '1100801892847586532',
+  sign: '7783bab488b651c3afefbafb31a26274'
+ },
 	  success: function(httpResponse) {
 	    console.log(httpResponse.text);
 		response.success(httpResponse.text);
