@@ -33,7 +33,7 @@ AV.Cloud.httpRequest({
   },
   error: function(httpResponse) {
     console.error('Request failed with response code ' + httpResponse.status);
-	response.error(httpResponse.text);
+	response.success(httpResponse.text);
   }
 });
 
