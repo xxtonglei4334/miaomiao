@@ -303,8 +303,6 @@ Push.prototype.queryBindList = function (options, cb) {
  * @param {function} cb(err, result)
  */
 Push.prototype.pushMsg = function (options, cb) {
-					console.log("tonglei pushMsg in");
-
   var self = this;
   var opt = {};
   if (typeof options === 'function' && arguments.length === 1) {
@@ -364,7 +362,7 @@ Push.prototype.pushMsg = function (options, cb) {
  * @param {function} cb cb(err, result)
  */
 
-function request(bodyArgs, path, sk, id, host, cb) {
+function request(bodyArgs, path, sk, id, host) {
 
 	// assert.ok(bodyArgs.method);
 	// assert.ok(path);
@@ -440,6 +438,9 @@ function request(bodyArgs, path, sk, id, host, cb) {
 
 }
 
+var ak = '0C3jS31DYteNDW1HAM3TGcKV';
+var sk = '4mncUaMrC6L7h7Pqtf21XOx0azBGNcVa';
+
 var coolNames = ['Ralph', 'Skippy', 'Chip', 'Ned', 'Scooter'];
 exports.isACoolName = function(name, response) {
 // 	urlencode(name);
@@ -464,15 +465,13 @@ exports.isACoolName = function(name, response) {
 //   }
 // });
 			//配置push对象
+	// var client = new Push();
+
+
+
+
+
 	var opt = {
-				ak: '0C3jS31DYteNDW1HAM3TGcKV',
-				sk: '4mncUaMrC6L7h7Pqtf21XOx0azBGNcVa'
-	};
-	var client = new Push();
-
-
-
-			var push_opt = {
 				push_type: 0,
 				user_id: '1100801892847586532',
 				messages: JSON.stringify(["hello, push0", "hello, push1", "hello, push2"]),
@@ -480,16 +479,30 @@ exports.isACoolName = function(name, response) {
 				// messages: request.messages,
 				// msg_keys: JSON.stringify([new Date().getTime() + ""])
 				// msg_keys: JSON.stringify(["8989777656"])
-			}
-					console.log("isACoolName 459");
-	return client.pushMsg(push_opt, function(err, result){
-			if (err) {
-					console.log(err);
-					response.error(error);
-					return;
-				}
-				response.success(res);
-				console.log(result);
-	});
-  // return coolNames.indexOf(name) !== -1;
+	}
+
+
+
+  var must = ['push_type', 'messages', 'msg_keys'];
+
+  if (opt['push_type'] === 1) {
+  	must.push('user_id');
+  } else if (opt['push_type'] === 2) {
+  	must.push('tag');
+  } else {
+
+  }
+
+  checkOptions(opt, must);
+
+  var path = COMMON_PATH + 'channel';
+
+  opt['method'] = 'push_msg';
+  opt['apikey'] = ak;
+  opt['timestamp'] = getTimestamp();
+
+  opt = sortObj(opt);
+  var wrap_id = {request_id: null};
+
+  return request(opt, path, sk, wrap_id, SERVER_HOST);
 }

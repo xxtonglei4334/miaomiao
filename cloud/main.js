@@ -20,24 +20,26 @@ var bodyStr = options.body;
 console.log(urlStr);
 console.log(bodyStr);
 
-AV.Cloud.httpRequest({
-  method: 'POST',
-  url: urlStr,
-  header : {
-  	'Content-Length': bodyStr.length,
-  	// 'Content-Type': 'application/json'
-  	'Content-Type':'application/x-www-form-urlencoded'
-  },
-  body: bodyStr,
-  success: function(httpResponse) {
-    console.log(httpResponse.text);
-    			response.success(httpResponse.text);
-  },
-  error: function(httpResponse) {
-    console.error('Request failed with response code ' + httpResponse.status);
-	response.success(httpResponse.text);
-  }
-});
+response.success("okokok");
+
+// AV.Cloud.httpRequest({
+//   method: 'POST',
+//   url: urlStr,
+//   header : {
+//   	'Content-Length': bodyStr.length,
+//   	// 'Content-Type': 'application/json'
+//   	'Content-Type':'application/x-www-form-urlencoded'
+//   },
+//   body: bodyStr,
+//   success: function(httpResponse) {
+//     console.log(httpResponse.text);
+//     			response.success(httpResponse.text);
+//   },
+//   error: function(httpResponse) {
+//     console.error('Request failed with response code ' + httpResponse.status);
+// 	response.success(httpResponse.text);
+//   }
+// });
 
 
 
