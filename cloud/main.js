@@ -38,15 +38,16 @@ AV.Cloud.define("test", function(request, response) {
 // });
 
 
-
+var bodyStr = 'dffdfdfd';
 
 AV.Cloud.httpRequest({
   method: 'POST',
   url: 'http://www.baidu.com/',
-  // headers: {
-  //   'Content-Type': 'application/json'
-  // },
-  body: 'dffdfdfd',
+  headers: {
+	'Content-Length': bodyStr.length,
+	'Content-Type':'application/x-www-form-urlencoded'
+  },
+  body: bodyStr,
   success: function(httpResponse) {
     console.log(httpResponse.text);
     response.success(httpResponse.text);
